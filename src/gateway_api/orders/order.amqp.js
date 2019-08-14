@@ -4,9 +4,13 @@ function initAMQP(pii_id, message_id) {
 
     //TODO: create configuration file
     var amqp = require('amqplib/callback_api');
-    const opt = { credentials: require('amqplib').credentials.plain('guest', 'guest') };
+    const opt = { credentials: require('amqplib').credentials.plain('miko', 'miko') };
+    HOST_IP = '192.168.0.145';
+    //HOST_IP = 'localhost';
 
-    amqp.connect('amqp://localhost', opt, function(error0, connection) {
+    //amqp.connect('amqp://guest:guest@192.168.0.145' , opt, function(error0, connection) {
+    //amqp.connect('amqp://localhost' , opt, function(error0, connection) {
+    amqp.connect('amqp://192.168.0.145:5672' , opt, function(error0, connection) {
     if (error0) {
         throw error0;
     }

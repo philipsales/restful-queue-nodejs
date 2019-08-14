@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-function initSMSAMQP(pii_id, message_id) {
+function initSMSAMQP(data) {
 
     //TODO: create configuration file
     var amqp = require('amqplib/callback_api');
@@ -19,6 +19,7 @@ function initSMSAMQP(pii_id, message_id) {
 
         var binding_keys = 'notification_events';
         var msg = "hello";
+        //var msg = data;
 
         channel.assertExchange(exchange, 'topic', {
             durable: true 

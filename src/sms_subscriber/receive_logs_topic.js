@@ -3,6 +3,7 @@
 var couchbase = require('couchbase');
 var amqp = require('amqplib/callback_api');
 var binding_keys = ['notification_events']
+var request = require('request-promise');
 
 
 const opt = { credentials: require('amqplib').credentials.plain('guest', 'guest') };
@@ -43,7 +44,26 @@ amqp.connect('amqp://localhost', opt, function(error0, connection) {
       channel.consume(q.queue, function(data) {
         console.log(" [x] Received in the SMS gateway %s:'%s'", data.fields.routingKey, data.content.toString());
 
-        //TODO: manipulate the data here
+        //TODO: push the data to notificationAPI
+        _data = {
+            "messageContent" : {
+                "sms" : "SMS template",
+                "email" : "Email template",
+                "fbMessenger" : "Messenger template"       
+            },           
+            "recipientContact" : {                           
+                "sms" : "+639661191865",
+                "email" : "test@awh.com",
+                "fbMessenger" : "m.me/testAWH"
+            },            
+            "preferredChannels" : {
+                "sms" : true,
+                "fbMessenger" : true,
+                "email" : false
+            }
+        };
+
+        notificationAPI(_data);
 
       }, {
         noAck: false 
@@ -62,7 +82,7 @@ function notificationAPI(body){
 
   const options = {
       method: 'POST',
-      uri: 'http://194ddf7f.ngrok.io/sendSMS',
+      uri: 'http://a11a6f40.ngrok.io/sendSMS',
       body: _body,
       json: true,
       headers: {

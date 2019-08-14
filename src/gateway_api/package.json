@@ -39,9 +39,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://bitbucket.org/tiusales_team/biobankapi2.git"
+    "url": "git+https://github.com/philipsales/restful-queue-nodejs.git"
   },
   "author": "Kristhian Tiu",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/tiusales_team/biobankapi2#readme"
+  "homepage": "https://github.com/philipsales/restful-queue-nodejs.git"
 }

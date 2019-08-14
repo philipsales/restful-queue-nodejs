@@ -43,14 +43,15 @@ amqp.connect('amqp://localhost', opt, function(error0, connection) {
         var resident_id = 1;
         var message_id = 2;
 
-        //var combined_data = setMessage(resident_id, message_id);
+        var combined_data = setMessage(resident_id, message_id);
+        
         //TODO: pass the data here to module notification_publisher
 
         //prefered is SMS, push to sms channel
         //TODO: manipulate data format here,
         //TODO: asynch function for combined data
         //TODO: this should not be function call but amqp call thru url for docker purposes in future
-        amqpPublisher.initSMSAMQP();
+        amqpPublisher.initSMSAMQP(data);
 
         //prefered is email, push to email channel
 
