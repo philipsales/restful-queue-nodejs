@@ -1,10 +1,11 @@
 {
-  "name": "notification-api",
+  "name": "sms-api",
   "version": "1.0.0",
-  "description": "API for Notification",
-  "main": "app.js",
+  "description": "API for SMS Messaging",
+  "main": "server.js",
   "dependencies": {
     "amqplib": "^0.5.5",
+    "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
@@ -34,14 +35,14 @@
   },
   "scripts": {
     "start": "node server/server.js",
-    "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && mocha **/**/spectypes.*.js --exit",
-    "test-watch": "nodemon --exec 'npm test'"
+    "local": "export NODE_ENV=local || SET \"NODE_ENV=local\" && mocha **/**/spectypes.*.js --exit",
+    "local-watch": "nodemon --exec 'npm local'"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://bitbucket.org/tiusales_team/biobankapi2.git"
+    "url": "git+https://cristopher96@bitbucket.org/awhdatateam/notifications-pipeline.git"
   },
-  "author": "Kristhian Tiu",
+  "author": "Cristopher Sodusta",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/tiusales_team/biobankapi2#readme"
+  "homepage": "https://cristopher96@bitbucket.org/awhdatateam/notifications-pipeline#readme"
 }

@@ -22,7 +22,7 @@ src/notifications_subcriber/node_modules
 src/email_subscriber/node_modules
 src/notifications_gateway_api/node_modules
 src/sms_api/node_modules
-
+src/sms_api/package-lock.json
 # Credentials 
 
 # Byte-compiled / optimized / DLL files

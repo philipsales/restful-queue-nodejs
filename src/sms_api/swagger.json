@@ -1,59 +1,29 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Notifications API",
+    "title": "SMS API",
     "version": "0.1"
   },
   "paths": {
-    "/notifications/appointments": {
+    "/sms/sendSMS/": {
       "post": {
-        "summary": "Create an appointment notification",
-        "description": "Adds a new notification to the notification's list",
+        "summary": "Send a Short Message Service (SMS)",
+        "description": "Sending an SMS to a recipient number",
         "parameters": [
           {
-            "name": "notification",
+            "name": "message",
             "in": "body",
-            "description": "The notification to create.",
+            "description": "The message to create.",
             "schema": {
-              "$ref": "#/definitions/notification"
+              "$ref": "#/definitions/sms"
             }
           }
         ],
         "responses": {
           "201": {
-            "description": "notification successfully created.",
+            "description": "message successfully sent.",
             "schema": {
-              "$ref": "#/definitions/notification"
-            }
-          },
-          "400": {
-            "$ref": "#/responses/Standard400ErrorResponse"
-          },
-          "500": {
-            "$ref": "#/responses/Standard500ErrorResponse"
-          }
-        }
-      }
-    },
-    "/notifications/orders": {
-      "post": {
-        "summary": "Create an order notification",
-        "description": "Adds a new notification to the notification's list",
-        "parameters": [
-          {
-            "name": "notification",
-            "in": "body",
-            "description": "The notification to create.",
-            "schema": {
-              "$ref": "#/definitions/notification"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "notification successfully created.",
-            "schema": {
-              "$ref": "#/definitions/notification"
+              "$ref": "#/definitions/smsResponse"
             }
           },
           "400": {
@@ -76,63 +46,93 @@
     }
   },
   "definitions": {
-    "notification": {
+    "sms": {
       "required": [
-        "notificationname"
+        "recipient",
+        "messageContent"
       ],
       "properties": {
-        "id": {
-          "type": "integer",
-          "readOnly": true
-        },
-        "notificationname": {
-          "type": "string"
-        },
-        "permissions": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "isActive": {
-          "type": "boolean"
-        }
-      }
-    },
-    "notifications": {
-      "properties": {
-        "data": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/notification"
+        "message" : {
+          "type" : "object",
+          "properties" : {
+            "recipient": {
+              "type": "string"
+            },
+            "messageContent": {
+              "type": "string"
+            }        
           }
         }
       }
     },
-    "Error": {
-      "properties": {
-        "code": {
-          "type": "string"
+    "smsResponse" : {
+      "properties":{
+        "sid": {
+          "type" : "string"
         },
-        "errors": {
-          "type": "array",
-          "items": {
-            "properties": {
-              "field": {
-                "type": "string"
-              },
-              "error": {
-                "type": "string"
-              }
+      "date_created": {
+          "type": "string"
+      },
+      "date_updated": {
+          "type": "string"
+      },
+      "date_sent": {
+          "type": "string"
+      },
+      "account_sid": {
+        "type": "string"
+      },
+      "to": {
+        "type": "string"
+      },
+      "from": {
+        "type": "string"
+      },
+      "messaging_service_sid": {
+        "type": "string"
+      },
+      "body": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "num_segments": {
+        "type": "string"
+      },
+      "num_media": {
+        "type": "string"
+      },
+      "direction": {
+        "type": "string"
+      },
+      "api_version": {
+        "type": "string"
+      },
+      "price":{
+        "type" : "string"
+      },
+      "price_unit":{
+        "type" : "string"
+      },
+      "error_code":{
+        "type" : "string"
+      },
+      "error_message":{
+        "type" : "string"
+      },
+      "uri":{
+        "type" : "string"
+      },
+      "subresource_uris": {
+          "type" : "object",
+          "properties":{
+            "media": {
+              "type" : "string"
             }
           }
-        },
-        "userMessage": {
-          "type": "string"
-        },
-        "internalMessage": {
-          "type": "string"
-        }
+      }
+
       }
     }
   },
@@ -141,10 +141,7 @@
       "description": "An unexpected error occured."
     },
     "Standard400ErrorResponse": {
-      "description": "Incorrect parameters submitted.",
-      "schema": {
-        "$ref": "#/definitions/Error"
-      }
+      "description": "Incorrect parameters submitted."
     },
     "Standard401ErrorResponse": {
       "description": "Unauthorized"
@@ -157,3 +154,4 @@
     }
   }
 }
+
