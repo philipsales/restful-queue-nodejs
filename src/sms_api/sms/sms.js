@@ -10,14 +10,19 @@ router.use(bodyParser.json());
 
 router.post('/sendSMS', function (req, res) {
 	
-	var messageDetail = req.body.message;
-	var recipientNumber = messageDetail.recipient;
-	var messageContent = messageDetail.messageContent;
-	var request = twilio.sendMessage(messageContent, recipientNumber);
+	var messages = req.body.messages;
+	var requests = [];
 
-	Promise.all([request])
-	.then(function(data) {
-		res.status(201).send(data[0]);
+	messages.forEach((messageDetail) => {
+		var recipientNumber = messageDetail.recipient;
+		var messageContent = messageDetail.messageContent;
+
+		requests.push(twilio.sendMessage(messageContent, recipientNumber));
+	});
+	
+	Promise.all(requests)
+	.then(function(response) {
+		res.status(200).send(response);
 	})
 });
 

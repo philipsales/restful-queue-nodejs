@@ -27,10 +27,24 @@ class TwilioREST{
 		return new Promise((resolve,reject) => {
 			axios.post(url, querystring.stringify(data))
 			.then((response) => {
-				resolve(response.data);
+				let successData = {};
+				successData["statusCode"] = response.status;
+				successData["statusText"] = response.statusText;
+				successData["recipientNumber"] = recipient;
+				successData["messageContent"] = message;
+				successData["twilioMessageSID"] = response.data.sid;
+				successData["dateCreated"] = new Date(response.data.date_created).toISOString();
+				resolve(successData);
 			})
 			.catch((error) => {
-				reject(error);
+				let errorData = {};
+				errorData["statusCode"] = error.response.status;
+				errorData["statusText"] = error.response.statusText;
+				errorData["recipientNumber"] = recipient;
+				errorData["messageContent"] = message;
+				errorData["twilioErrorCode"] = error.response.data.code;
+				errorData["twilioErrorMessage"] = error.response.data.message;
+				resolve(errorData);
 			});
 		});
 	}

@@ -7,21 +7,21 @@
   "paths": {
     "/sms/sendSMS/": {
       "post": {
-        "summary": "Send a Short Message Service (SMS)",
-        "description": "Sending an SMS to a recipient number",
+        "summary": "Send a single/bulk SMS message/s",
+        "description": "Sending SMS message/s to each recipient number.",
         "parameters": [
           {
-            "name": "message",
+            "name": "Message/s",
             "in": "body",
-            "description": "The message to create.",
+            "description": "Requires at least a single item containing message content and recipient mobile number in the messages list.",
             "schema": {
               "$ref": "#/definitions/sms"
             }
           }
         ],
         "responses": {
-          "201": {
-            "description": "message successfully sent.",
+          "200": {
+            "description": "Message/s successfully sent.",
             "schema": {
               "$ref": "#/definitions/smsResponse"
             }
@@ -47,92 +47,97 @@
   },
   "definitions": {
     "sms": {
-      "required": [
-        "recipient",
-        "messageContent"
-      ],
       "properties": {
-        "message" : {
-          "type" : "object",
-          "properties" : {
-            "recipient": {
-              "type": "string"
-            },
-            "messageContent": {
-              "type": "string"
-            }        
+        "messages" : {
+          "required": [
+            "recipient",
+            "messageContent"
+          ],
+          "type" : "array",
+          "items" : {
+              "type" : "object",
+              "properties" : {            
+                "recipient": {
+                  "type": "string"
+                },
+                "messageContent": {
+                  "type": "string"
+                }        
+              }
           }
         }
       }
     },
     "smsResponse" : {
-      "properties":{
-        "sid": {
-          "type" : "string"
-        },
-      "date_created": {
-          "type": "string"
-      },
-      "date_updated": {
-          "type": "string"
-      },
-      "date_sent": {
-          "type": "string"
-      },
-      "account_sid": {
-        "type": "string"
-      },
-      "to": {
-        "type": "string"
-      },
-      "from": {
-        "type": "string"
-      },
-      "messaging_service_sid": {
-        "type": "string"
-      },
-      "body": {
-        "type": "string"
-      },
-      "status": {
-        "type": "string"
-      },
-      "num_segments": {
-        "type": "string"
-      },
-      "num_media": {
-        "type": "string"
-      },
-      "direction": {
-        "type": "string"
-      },
-      "api_version": {
-        "type": "string"
-      },
-      "price":{
-        "type" : "string"
-      },
-      "price_unit":{
-        "type" : "string"
-      },
-      "error_code":{
-        "type" : "string"
-      },
-      "error_message":{
-        "type" : "string"
-      },
-      "uri":{
-        "type" : "string"
-      },
-      "subresource_uris": {
-          "type" : "object",
-          "properties":{
-            "media": {
-              "type" : "string"
-            }
+      "type" : "array",
+      "items" : {
+        "properties":{
+          "sid": {
+            "type" : "string"
+          },
+          "date_created": {
+              "type": "string"
+          },
+          "date_updated": {
+              "type": "string"
+          },
+          "date_sent": {
+              "type": "string"
+          },
+          "account_sid": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "from": {
+            "type": "string"
+          },
+          "messaging_service_sid": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "num_segments": {
+            "type": "string"
+          },
+          "num_media": {
+            "type": "string"
+          },
+          "direction": {
+            "type": "string"
+          },
+          "api_version": {
+            "type": "string"
+          },
+          "price":{
+            "type" : "string"
+          },
+          "price_unit":{
+            "type" : "string"
+          },
+          "error_code":{
+            "type" : "string"
+          },
+          "error_message":{
+            "type" : "string"
+          },
+          "uri":{
+            "type" : "string"
+          },
+          "subresource_uris": {
+              "type" : "object",
+              "properties":{
+                "media": {
+                  "type" : "string"
+                }
+              }
           }
-      }
-
+        }
       }
     }
   },
