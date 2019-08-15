@@ -1,22 +1,19 @@
 {
-    "local": {
-        "HOST": "localhost",
-        "PORT": 3001,
-        "DB_PORT": 27017,
-        "DATABASE": "",
-        "DATABASE_URI": "",
-        "USERNAME": "",
-        "PASSWORD": "",
-        "JWT_SECRET": "SADWDAWADAcasdadwadacawdawd1213!@12121212"
+    "production": {
     },
-    "test": {
-        "HOST": "localhost",
+    "development": {
         "PORT": 3001,
-        "DB_PORT": 27017,
-        "DATABASE": "",
-        "DATABASE_URI": "",
-        "USERNAME": "",
-        "PASSWORD": "",
-        "JWT_SECRET": "SADWDAWADAcasdadwadacawdawd1213!@12121212"
+        "RABBIT_HOST": "192.168.0.145",
+        "RABBIT_PORT": "5672",
+        "RABBIT_PROTOCOL": "amqp",
+        "RABBIT_USERNAME": "miko",
+        "RABBIT_PASSWORD": "miko",
+        "RABBIT_EXAMPLE": "amqp://192.168.0.145:5672",
+        "MPI_PROTOCOL": "https://",
+        "MPI_HOST": "399e77e3-e359-464d-9d9a-58496744458c.mock.pstmn.io/v1/",
+        "MPI_ENDPOINT": "residents",
+        "MPI_NAME": "Master Patient Index",
+        "MPI_EXAMPLE": "https://399e77e3-e359-464d-9d9a-58496744458c.mock.pstmn.io/v1/residents",
+        "COUCHBASE_HOST": "139.162.49.49"
     }
 }

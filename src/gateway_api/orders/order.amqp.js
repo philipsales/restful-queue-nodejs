@@ -1,16 +1,14 @@
 #!/usr/bin/env node
 
-function initAMQP(pii_id, message_id) {
+function initAMQP(residentID, messageCode, appID) {
 
     //TODO: create configuration file
     var amqp = require('amqplib/callback_api');
-    const opt = { credentials: require('amqplib').credentials.plain('miko', 'miko') };
-    HOST_IP = '192.168.0.145';
-    //HOST_IP = 'localhost';
+    const opt = { credentials: require('amqplib')
+        .credentials.plain(process.env.RABBIT_USERNAME, process.env.RABBIT_PASSWORD) };
 
-    //amqp.connect('amqp://guest:guest@192.168.0.145' , opt, function(error0, connection) {
-    //amqp.connect('amqp://localhost' , opt, function(error0, connection) {
-    amqp.connect('amqp://192.168.0.145:5672' , opt, function(error0, connection) {
+    console.log(`${process.env.RABBIT_PROTOCOL}://${process.env.RABBIT_HOST}:${process.env.RABBIT_PORT}`, "micool");
+    amqp.connect(`${process.env.RABBIT_PROTOCOL}://${process.env.RABBIT_HOST}:${process.env.RABBIT_PORT}`, opt, function(error0, connection) {
     if (error0) {
         throw error0;
     }
@@ -22,7 +20,7 @@ function initAMQP(pii_id, message_id) {
         var exchange = 'amqp.topic.notification-requests';
 
         var binding_keys = 'notification_events';
-        var msg = "hello";
+        var msg = JSON.stringify({residentID, messageCode, appID});
 
         channel.assertExchange(exchange, 'topic', {
             durable: true 

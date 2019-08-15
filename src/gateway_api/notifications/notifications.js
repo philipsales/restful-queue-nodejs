@@ -1,23 +1,24 @@
 'use strict';
-
 const request = require('request-promise');
 const _ = require('lodash');
 var express = require('express')
 var router = express.Router();
 const bodyParser = require('body-parser');
 
-var initAMQP = require('../server/emit_logs_topic');
+//var initAMQP = require('../server/emit_logs_topic');
 var orders = require('../orders/order.amqp');
-
+var appointments = require('../appointments/appointment.amqp');
 var couchbase = require('couchbase')
 
 router.use(bodyParser.json());
+//remove this
 
+/*
 const getPersonalInformation = (resident_id) => {
     //TODO: get the couchbase IP and bucket from .conf file
 
     //TODO: separte function for connection setter
-    var cluster = new couchbase.Cluster('couchbase://139.162.49.49/');
+    var cluster = new couchbase.Cluster(`couchbase://${process.env.COUCHBASE_HOST}/`);
     var bucket = cluster.openBucket('awhcurisdb');
     var N1qlQuery = couchbase.N1qlQuery;
 
@@ -38,10 +39,9 @@ const getPersonalInformation = (resident_id) => {
 }
 
 const getNotificaitonMessage = (message_id) => {
-    //TODO: get the couchbase IP and bucket from .conf file
     //TODO: separte function for connection setter
     var couchbase = require('couchbase')
-    var cluster = new couchbase.Cluster('couchbase://139.162.49.49/');
+    var cluster = new couchbase.Cluster(`couchbase://${process.env.COUCHBASE_HOST}/`);
     var bucket = cluster.openBucket('awhcurisdb');
     var N1qlQuery = couchbase.N1qlQuery;
 
@@ -86,19 +86,20 @@ router.post('/', (req, res) => {
 */
 
 router.post('/orders/', (req, res) => {
-    var message_id = req.params.pii_id;
-    var pii_id = req.params.pii_id;
-
+    var residentID = req.body.residentID;
+    var messageCode = req.body.messageCode;
+    var appID = req.body.appID;
     console.log('POST GET');
-    orders.initAMQP(pii_id, message_id);
+    orders.initAMQP(residentID, messageCode, appID);
 });
 
 router.post('/appointments/', (req, res) => {
-    var message_id = req.params.pii_id;
-    var pii_id = req.params.pii_id;
+    var residentID = req.params.residentID;
+    var messageCode = req.params.messageCode;
+    var appID = req.params.appID;
 
     console.log('POST GET');
-    initAMQP.initAMQP(pii_id, message_id);
+    appointments.initAMQP(residentID, messageCode, appID);
 });
 
 /*

@@ -1,13 +1,15 @@
 #!/usr/bin/env node
-
+require('./config/config');
+const axios = require('axios');
 var couchbase = require('couchbase');
 var amqp = require('amqplib/callback_api');
 var binding_keys = ['notification_events']
 var request = require('request-promise');
 
 
-const opt = { credentials: require('amqplib').credentials.plain('guest', 'guest') };
-amqp.connect('amqp://localhost', opt, function(error0, connection) {
+const opt = { credentials: require('amqplib')
+  .credentials.plain(process.env.RABBIT_USERNAME, process.env.RABBIT_PASSWORD) };
+amqp.connect(`${process.env.RABBIT_PROTOCOL}://${process.env.RABBIT_HOST}:${process.env.RABBIT_PORT}`, opt, function(error0, connection) {
   if (error0) {
     throw error0;
   }
@@ -42,28 +44,9 @@ amqp.connect('amqp://localhost', opt, function(error0, connection) {
       */
 
       channel.consume(q.queue, function(data) {
-        console.log(" [x] Received in the SMS gateway %s:'%s'", data.fields.routingKey, data.content.toString());
-
-        //TODO: push the data to notificationAPI
-        _data = {
-            "messageContent" : {
-                "sms" : "SMS template",
-                "email" : "Email template",
-                "fbMessenger" : "Messenger template"       
-            },           
-            "recipientContact" : {                           
-                "sms" : "+639661191865",
-                "email" : "test@awh.com",
-                "fbMessenger" : "m.me/testAWH"
-            },            
-            "preferredChannels" : {
-                "sms" : true,
-                "fbMessenger" : true,
-                "email" : false
-            }
-        };
-
-        notificationAPI(_data);
+        console.log(" [x] sms subscriber: Received in the SMS gateway %s:'%s'", data.fields.routingKey, data.content.toString());
+        var body = data.content.toString();
+        notificationAPI(body);
 
       }, {
         noAck: false 
@@ -77,25 +60,13 @@ function notificationAPI(body){
   //TODO: move the notificationAPI function to separate module
   //TODO: substitute the var _body with paramater body 
   // var _body = body
-  var _body = body;
-  var _response;
-
-  const options = {
-      method: 'POST',
-      uri: 'http://a11a6f40.ngrok.io/sendSMS',
-      body: _body,
-      json: true,
-      headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-      }
-  }
-
-  request(options).then(function (payload){
-      _response = payload;
-  })
-  .catch(function (err) {
-      console.log(err);
-  })
+  console.log(body, 'micool');
+  var messages = JSON.parse(body);
+  axios.post(`${process.env.MSGS_PROTOCOL}${process.env.MSGS_HOST}${process.env.MSGS_SMS_CHANNEL}${process.env.MSGS_SMS_ENDPOINT}`, { messages }).then(response => {
+    if (response.status == 200) {
+      console.log('SMS-SUBSCRIBER', 'sending alert was a success!');
+    }
+    console.log('SMS-SUBSCRIBER', `status code: ${response.status}`);
+  });
 
 }

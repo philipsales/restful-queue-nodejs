@@ -4,8 +4,9 @@ var amqp = require('amqplib/callback_api');
 var binding_keys = ['notification_events']
 var couchbase = require('couchbase')
 
-const opt = { credentials: require('amqplib').credentials.plain('guest', 'guest') };
-amqp.connect('amqp://localhost', opt, function(error0, connection) {
+const opt = { credentials: require('amqplib')
+  .credentials.plain(process.env.RABBIT_USERNAME, process.env.RABBIT_PASSWORD) };
+amqp.connect(`${process.env.RABBIT_PROTOCOL}://${process.env.RABBIT_HOST}:${process.env.RABBIT_PORT}`, opt, function(error0, connection) {
   if (error0) {
     throw error0;
   }

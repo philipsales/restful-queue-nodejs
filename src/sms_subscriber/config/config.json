@@ -1,38 +1,29 @@
 {
-    "test": {
-        "HOST": "localhost",
-        "PORT": 3001,
-        "DB_PORT": 27017,
-        "DATABASE": "BiobankAPI",
-        "MONGODB_URI": "mongodb://localhost:27017/BiobankAPI",
-        "USERNAME": "PcariDBUser",
-        "PASSWORD": "pCaRi.Bi0b@nK.DBUser",
-        "JWT_SECRET": "SADWDAWADAcasdadwadacawdawd1213!@12121212",
-        "UPLOAD_DIR" : "./../uploads/",
-        "DUMP_DIR" : "./../dump/"
+    "production": {
     },
     "development": {
-        "HOST": "localhost",
         "PORT": 3001,
-        "DB_PORT": 27017,
-        "DATABASE": "BiobankAPI",
-        "MONGODB_URI": "mongodb://localhost:27017/BiobankAPI",
-        "USERNAME": "PcariDBUser",
-        "PASSWORD": "pCaRi.Bi0b@nK.DBUser",
-        "JWT_SECRET": "f31@qw3x213ef213124123123@!3123123xasdda",
-        "UPLOAD_DIR" : "./../uploads/",
-        "DUMP_DIR" : "./../dump/"
-    },
-    "production": {
         "HOST": "",
-        "PORT": 3001,
-        "DB_PORT": 27017,
-        "DATABASE": "BiobankAPI",
-        "MONGODB_URI": "mongodb://localhost:27017/BiobankAPI",
-        "USERNAME": "PcariDBProdUser",
-        "PASSWORD": "pCaRiBi0b@nKDBProdUser",
-        "JWT_SECRET": "fsdfaeqwdaef213124123123@!3123123SAdasdda",
-        "UPLOAD_DIR" : "./../uploads/",
-        "DUMP_DIR" : "./../dump/"
+        "RABBIT_HOST": "172.104.54.251",
+        "RABBIT_PORT": "5672",
+        "RABBIT_PROTOCOL": "amqp",
+        "RABBIT_USERNAME": "RabbitMQAdmin",
+        "RABBIT_PASSWORD": "RabbitAdm(1)n@AWH",
+        "RABBIT_EXAMPLE": "amqp://192.168.0.145:5672",
+        "MSGS_PROTOCOL": "https://",
+        "MSGS_HOST": "871c95fd.ngrok.io/",
+        "MSGS_SMS_CHANNEL": "sms/",
+        "MSGS_SMS_ENDPOINT": "sendSMS",
+        "MCS_PROTOCOL": "https://",
+        "MCS_HOST": "message-content.herokuapp.com/v1/",
+        "MCS_ENDPOINT": "messages",
+        "MCS_NAME": "Message Content Service",
+        "MCS_EXAMPLE": "https://message-content.herokuapp.com/v1/messages/dispergo_dispatched",
+        "MPI_PROTOCOL": "https://",
+        "MPI_HOST": "399e77e3-e359-464d-9d9a-58496744458c.mock.pstmn.io/v1/",
+        "MPI_ENDPOINT": "residents",
+        "MPI_NAME": "Master Patient Index",
+        "MPI_EXAMPLE": "https://399e77e3-e359-464d-9d9a-58496744458c.mock.pstmn.io/v1/residents",
+        "COUCHBASE_HOST": "139.162.49.49"
     }
 }

@@ -78,24 +78,19 @@
   "definitions": {
     "notification": {
       "required": [
-        "notificationname"
+        "residentID",
+        "messageCode",
+        "appID"
       ],
       "properties": {
-        "id": {
-          "type": "integer",
-          "readOnly": true
-        },
-        "notificationname": {
+        "residentID": {
           "type": "string"
         },
-        "permissions": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "messageCode": {
+          "type": "string"
         },
-        "isActive": {
-          "type": "boolean"
+        "appID": {
+          "type": "string"
         }
       }
     },
