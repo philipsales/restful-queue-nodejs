@@ -3,7 +3,8 @@
     },
     "development": {
         "PORT": 3001,
-        "HOST": "",
+        "HOST": "localhost",
+        "LOG_PATH": "logs/",
         "RABBIT_HOST": "172.104.54.251",
         "RABBIT_PORT": "5672",
         "RABBIT_PROTOCOL": "amqp",

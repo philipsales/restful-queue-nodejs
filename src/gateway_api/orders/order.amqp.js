@@ -14,9 +14,11 @@ function initAMQP(residentID, messageCode, appID) {
     }
 
     connection.createChannel(function(error1, channel) {
+
         if (error1) {
-        throw error1;
+          throw error1;
         }
+
         var exchange = 'amqp.topic.notification-requests';
 
         var binding_keys = 'notification_events';
