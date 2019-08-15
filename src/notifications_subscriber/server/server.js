@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 require('./config/config');
 
-var axios = require('axios');
+const axios = require('axios');
 
 const log = require('../lib/logger/logger').logger;
 const file = require('../lib/logger/util/filename');
@@ -54,7 +54,7 @@ amqp.connect(`${process.env.RABBIT_PROTOCOL}://${process.env.RABBIT_HOST}:${proc
             .then(result => {
 
                 var resident = result.data;
-                logger.info('GET from MPI Resident Data');
+                logger.info('GET from MPI API Data');
 
                 axios.get(`${process.env.MCS_PROTOCOL}${process.env.MCS_HOST}${process.env.MCS_ENDPOINT}/${messageCode}`, {
                   params: {

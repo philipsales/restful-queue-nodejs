@@ -2,7 +2,8 @@
     "local": {
         "HOST": "localhost",
         "PROTOCOL" : "http",
-        "PORT": 3001,
+        "LOG_PATH": "logs/",
+        "PORT": 3002,
         "TWILIO_ACCOUNT_SID" : "AC924a3593834d6ee5dc814852806fd5da",
         "TWILIO_AUTH_TOKEN"  : "6e3d2a551bcb6a46f73e01a35ed857ff",
         "TWILIO_NUMBER" : "+13345183970",
@@ -12,7 +13,8 @@
     "production": {
         "HOST": "xxx.xxx.xxx.xxx",
         "PROTOCOL" : "https",
-        "PORT": 3001,
+        "LOG_PATH": "logs/",
+        "PORT": 3002,
         "TWILIO_ACCOUNT_SID" : "AC924a3593834d6ee5dc814852806fd5da",
         "TWILIO_AUTH_TOKEN"  : "6e3d2a551bcb6a46f73e01a35ed857ff",
         "TWILIO_NUMBER" : "+13345183970",

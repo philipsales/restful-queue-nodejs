@@ -11,16 +11,12 @@ const auth = "Basic " + new Buffer
 	.from(twilio_sid + ":" + twilio_token)
 	.toString("base64");
 
-
-const log = require('../lib/logger/logger').logger;
-const file = require('../lib/logger/util/filename');
-const logger = log.child({ sourceFile: file.setFilename(__filename) });
-
 axios.defaults.headers.common['Authorization'] = auth
 axios.defaults.headers.post['Content-Type'] = twilio_content_type;
 
+class TwilioREST{
 
-function sendMessage(message, recipient){
+	sendMessage(message, recipient){
 		var url = twilio_messages_url+"/"+twilio_sid+"/Messages.json";
 		var data = {};
 
@@ -38,8 +34,7 @@ function sendMessage(message, recipient){
 				successData["messageContent"] = message;
 				successData["twilioMessageSID"] = response.data.sid;
 				successData["dateCreated"] = new Date(response.data.date_created).toISOString();
-				logger.info('succces twilio sms');
-				resolve(response.status);
+				resolve(successData);
 			})
 			.catch((error) => {
 				let errorData = {};
@@ -49,11 +44,10 @@ function sendMessage(message, recipient){
 				errorData["messageContent"] = message;
 				errorData["twilioErrorCode"] = error.response.data.code;
 				errorData["twilioErrorMessage"] = error.response.data.message;
-				logger.error('error twilio sms');
-				resolve(response.status);
+				reject(errorData);
 			});
 		});
 	}
+}
 
-
-module.exports = { sendMessage }
+module.exports = TwilioREST;
