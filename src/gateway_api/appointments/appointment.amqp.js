@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 
+const log = require('../lib/logger/logger').logger;
+const file = require('../lib/logger/util/filename');
+const logger = log.child({ sourceFile: file.setFilename(__filename) });
+
 function initAMQP(residentID, messageCode, appID) {
 
     //TODO: create configuration file
@@ -9,13 +13,17 @@ function initAMQP(residentID, messageCode, appID) {
 
     amqp.connect(`${process.env.RABBIT_PROTOCOL}://${process.env.RABBIT_HOST}:${process.env.RABBIT_PORT}`, opt, function(error0, connection) {
     if (error0) {
+        logger.warn('amqp connectoin', error0);
         throw error0;
     }
 
     connection.createChannel(function(error1, channel) {
+
         if (error1) {
-        throw error1;
+          logger.warn('amqp connection createChannel error', error1);
+          throw error1;
         }
+
         var exchange = 'amqp.topic.notification-requests';
 
         var binding_keys = 'notification_events';
@@ -26,7 +34,7 @@ function initAMQP(residentID, messageCode, appID) {
         });
 
         channel.publish(exchange, binding_keys, Buffer.from(msg));
-        console.log(" [x] Sent %s:'%s'", binding_keys, msg);
+        logger.info("[x] Data sent to RabbitMQ '%s'", msg);
 
     });
 
