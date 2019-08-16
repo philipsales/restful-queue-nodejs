@@ -26,6 +26,9 @@
               "$ref": "#/definitions/smsResponse"
             }
           },
+          "201": {
+            "description": "Created"
+          },
           "400": {
             "$ref": "#/responses/Standard400ErrorResponse"
           },

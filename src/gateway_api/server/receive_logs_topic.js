@@ -28,7 +28,7 @@ amqp.connect(`${process.env.RABBIT_PROTOCOL}://${process.env.RABBIT_HOST}:${proc
       if (error2) {
         throw error2;
       }
-      console.log(' [*] Waiting for logs. To exit press CTRL+C');
+      console.log(' [*] Waiting for logs..');
 
       binding_keys.forEach(function(key) {
         channel.bindQueue(q.queue, exchange, key);

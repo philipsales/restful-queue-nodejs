@@ -23,7 +23,7 @@
     },
     "development": {
         "PORT": 3001,
-        "HOST": "172.104.181.7",
+        "HOST": "172.104.181.7",   
         "LOG_PATH": "logs/",
         "RABBIT_HOST": "172.104.54.251",
         "RABBIT_PORT": "5672",
