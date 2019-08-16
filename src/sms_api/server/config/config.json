@@ -2,13 +2,21 @@
     "local": {
         "HOST": "localhost",
         "PROTOCOL" : "http",
-        "LOG_PATH": "logs/",
-        "PORT": 3002,
-        "TWILIO_ACCOUNT_SID" : "AC924a3593834d6ee5dc814852806fd5da",
-        "TWILIO_AUTH_TOKEN"  : "6e3d2a551bcb6a46f73e01a35ed857ff",
-        "TWILIO_NUMBER" : "+13345183970",
+        "TWILIO_ACCOUNT_SID" : "AC667810fd747b944883f70641c88adfe1",
+        "TWILIO_AUTH_TOKEN"  : "9c4b772f92d697595bbcb96f43d1e0e0",
+        "TWILIO_NUMBER" : "+12052739233",
         "TWILIO_MESSAGES_URL" : "https://api.twilio.com/2010-04-01/Accounts",
-        "TWILIO_CONTENT_TYPE" : "application/x-www-form-urlencoded"
+        "TWILIO_CONTENT_TYPE" : "application/x-www-form-urlencoded",
+        "LOG_PATH": "logs/",
+        "PORT": 3002
+    },
+    "production": {
+        "HOST": "xxx.xxx.xxx.xxx",
+        "PROTOCOL" : "https",
+        "PORT": 3002,
+        "TWILIO_ACCOUNT_SID" : "AC667810fd747b944883f70641c88adfe1",
+        "TWILIO_AUTH_TOKEN"  : "9c4b772f92d697595bbcb96f43d1e0e0",
+        "TWILIO_NUMBER" : "+12052739233"
     },
     "development": {
         "HOST": "172.104.54.251",
