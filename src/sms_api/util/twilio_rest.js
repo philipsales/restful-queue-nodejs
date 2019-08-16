@@ -50,7 +50,8 @@ function sendMessage(message, recipient){
 				errorData["twilioErrorCode"] = error.response.data.code;
 				errorData["twilioErrorMessage"] = error.response.data.message;
 				logger.error('error twilio sms');
-				resolve(response.status);
+				console.log(error.response.data.message);
+				reject(response.status);
 			});
 		});
 	}

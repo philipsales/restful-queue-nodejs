@@ -30,7 +30,8 @@ router.post('/sendSMS', function (req, res) {
 	
 	//var recipientNumber = message.recipient;
 	var recipientNumber ='+639661191865';
-	var	messageContent = req.body[0].messageContent ;
+	//var	messageContent = req.body[0].messageContent ;
+	var	messageContent = 'hi ooty';
 	
 
 	twilioREST.sendMessage(messageContent,recipientNumber)
