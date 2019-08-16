@@ -1,22 +1,32 @@
 {
     "local": {
+        "PORT": 3002,
         "HOST": "localhost",
-        "PORT": 3001,
-        "DB_PORT": 27017,
-        "DATABASE": "",
-        "DATABASE_URI": "",
-        "USERNAME": "",
-        "PASSWORD": "",
-        "JWT_SECRET": "SADWDAWADAcasdadwadacawdawd1213!@12121212"
+        "LOG_PATH": "logs/",
+        "RABBIT_HOST": "localhost",
+        "RABBIT_PORT": "5672",
+        "RABBIT_PROTOCOL": "amqp",
+        "RABBIT_USERNAME": "miko",
+        "RABBIT_PASSWORD": "miko",
+        "RABBIT_EXAMPLE": "amqp://192.168.0.145:5672",
+        "MSGS_PROTOCOL": "https://",
+        "MSGS_HOST": "871c95fd.ngrok.io/",
+        "MSGS_SMS_CHANNEL": "sms/",
+        "MSGS_SMS_ENDPOINT": "sendSMS"
     },
-    "test": {
-        "HOST": "localhost",
-        "PORT": 3001,
-        "DB_PORT": 27017,
-        "DATABASE": "",
-        "DATABASE_URI": "",
-        "USERNAME": "",
-        "PASSWORD": "",
-        "JWT_SECRET": "SADWDAWADAcasdadwadacawdawd1213!@12121212"
+    "development": {
+        "PORT": 3002,
+        "HOST": "172.104.181.7",
+        "LOG_PATH": "logs/",
+        "RABBIT_HOST": "172.104.54.251",
+        "RABBIT_PORT": "5672",
+        "RABBIT_PROTOCOL": "amqp",
+        "RABBIT_USERNAME": "RabbitMQAdmin",
+        "RABBIT_PASSWORD": "RabbitAdm(1)n@AWH",
+        "RABBIT_EXAMPLE": "amqp://192.168.0.145:5672",
+        "MSGS_PROTOCOL": "https://",
+        "MSGS_HOST": "871c95fd.ngrok.io/",
+        "MSGS_SMS_CHANNEL": "sms/",
+        "MSGS_SMS_ENDPOINT": "sendSMS"
     }
 }

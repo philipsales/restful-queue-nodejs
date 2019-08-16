@@ -24,7 +24,7 @@
         "DUMP_DIR" : "./../dump/"
     },
     "production": {
-        "HOST": "",
+        "HOST": "172.104.181.7"
         "PORT": 3001,
         "DB_PORT": 27017,
         "DATABASE": "BiobankAPI",

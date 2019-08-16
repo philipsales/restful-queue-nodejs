@@ -1,6 +1,4 @@
 {
-    "production": {
-    },
     "local": {
         "PORT": 3001,
         "HOST": "localhost",
@@ -25,7 +23,7 @@
     },
     "development": {
         "PORT": 3001,
-        "HOST": "localhost",
+        "HOST": "172.104.181.7",   
         "LOG_PATH": "logs/",
         "RABBIT_HOST": "172.104.54.251",
         "RABBIT_PORT": "5672",

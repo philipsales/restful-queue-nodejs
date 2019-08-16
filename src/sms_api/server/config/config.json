@@ -10,9 +10,9 @@
         "TWILIO_MESSAGES_URL" : "https://api.twilio.com/2010-04-01/Accounts",
         "TWILIO_CONTENT_TYPE" : "application/x-www-form-urlencoded"
     },
-    "production": {
-        "HOST": "xxx.xxx.xxx.xxx",
-        "PROTOCOL" : "https",
+    "development": {
+        "HOST": "172.104.54.251",
+        "PROTOCOL" : "http",
         "LOG_PATH": "logs/",
         "PORT": 3002,
         "TWILIO_ACCOUNT_SID" : "AC924a3593834d6ee5dc814852806fd5da",
