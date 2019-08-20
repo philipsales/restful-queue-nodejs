@@ -1,17 +1,11 @@
 'use strict';
 
+const file = require('../logger/util/filename');
 const logPath = process.env.LOG_PATH;
 //const logPath = '../logs/';
 
 const { createLogger, format, transports } = require('winston');
 const { combine, timestamp, label, prettyPrint } = format;
-
-
-var myFormat = format.combine(
-  format.timestamp({
-    format: 'YYYY-MM-DD HH:mm:ss'
-  })
-);
 
 const logger = createLogger({
     format: format.combine(
@@ -60,4 +54,4 @@ const logger = createLogger({
       )
   }));
   
-  module.exports = { logger }
+  module.exports = { logger, file }

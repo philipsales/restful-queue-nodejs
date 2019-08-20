@@ -2,13 +2,11 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-//const twilioREST = require('../util/twilio_rest.js');
 const router = express.Router();
 const twilioREST = require('../util/twilio_rest');
 
-const log = require('../lib/logger/logger').logger;
-const file = require('../lib/logger/util/filename');
-const logger = log.child({ sourceFile: file.setFilename(__filename) });
+const log = require('../lib/logger/logger');
+const logger = log.logger.child({ sourceFile: log.file.setFilename(__filename) });
 
 router.use(bodyParser.json());
 
@@ -23,8 +21,13 @@ router.post('/sendSMS', function (req, res) {
 
 	)
 	.then(function(response) {
+		logger.info('success');
 		res.status(200).send(response);
 	})
+	.catch(function(error){
+		logger.error(error);
+	});
+	
 });
 
 module.exports =  router;
