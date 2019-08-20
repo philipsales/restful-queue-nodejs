@@ -50,24 +50,19 @@
   },
   "definitions": {
     "sms": {
-      "properties": {
-        "messages" : {
-          "required": [
-            "recipient",
-            "messageContent"
-          ],
-          "type" : "array",
-          "items" : {
-              "type" : "object",
-              "properties" : {            
-                "recipient": {
-                  "type": "string"
-                },
-                "messageContent": {
-                  "type": "string"
-                }        
-              }
-          }
+      "type" : "array",
+      "items" : {
+        "properties" : {
+        "required": [
+          "recipient",
+          "messageContent"],
+       
+          "recipient": {
+            "type": "string"
+          },
+          "messageContent": {
+            "type": "string"
+          }        
         }
       }
     },
@@ -75,70 +70,29 @@
       "type" : "array",
       "items" : {
         "properties":{
-          "sid": {
+          "twilioStatusCode": {
+            "type" : "integer"
+          },
+          "twilioStatusText": {
             "type" : "string"
           },
-          "date_created": {
-              "type": "string"
-          },
-          "date_updated": {
-              "type": "string"
-          },
-          "date_sent": {
-              "type": "string"
-          },
-          "account_sid": {
-            "type": "string"
-          },
-          "to": {
-            "type": "string"
-          },
-          "from": {
-            "type": "string"
-          },
-          "messaging_service_sid": {
-            "type": "string"
-          },
-          "body": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "num_segments": {
-            "type": "string"
-          },
-          "num_media": {
-            "type": "string"
-          },
-          "direction": {
-            "type": "string"
-          },
-          "api_version": {
-            "type": "string"
-          },
-          "price":{
+          "recipientNumber" : {
             "type" : "string"
           },
-          "price_unit":{
+          "messageContent" : {
             "type" : "string"
           },
-          "error_code":{
+          "twilioMessageSID" : {
             "type" : "string"
           },
-          "error_message":{
+          "dateCreated" : {
             "type" : "string"
           },
-          "uri":{
-            "type" : "string"
+          "twilioErrorCode" : {
+            "type" : "integer"
           },
-          "subresource_uris": {
-              "type" : "object",
-              "properties":{
-                "media": {
-                  "type" : "string"
-                }
-              }
+          "twilioErrorMessage" : {
+            "type" : "string"
           }
         }
       }

@@ -1,4 +1,3 @@
-//var env = process.env.NODE_ENV || 'local';
 var env = process.env.NODE_ENV || 'local';
 
 if (env === 'development' || env === 'local'){

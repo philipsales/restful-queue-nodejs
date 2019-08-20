@@ -10,13 +10,20 @@ const twilio_messages_url =  process.env.TWILIO_MESSAGES_URL;
 const auth = "Basic " + new Buffer
 	.from(twilio_sid + ":" + twilio_token)
 	.toString("base64");
+const log = require('../lib/logger/logger').logger;
+const file = require('../lib/logger/util/filename');
+const logger = log.child({ sourceFile: file.setFilename(__filename) });
 
+<<<<<<< HEAD
 
 const log = require('../lib/logger/logger').logger;
 const file = require('../lib/logger/util/filename');
 const logger = log.child({ sourceFile: file.setFilename(__filename) });
 
 axios.defaults.headers.common['Authorization'] = auth
+=======
+axios.defaults.headers.common['Authorization'] = auth;
+>>>>>>> c1480496a37c13380d21dbd79004909a144356bc
 axios.defaults.headers.post['Content-Type'] = twilio_content_type;
 
 
@@ -32,26 +39,36 @@ function sendMessage(message, recipient){
 			axios.post(url, querystring.stringify(data))
 			.then((response) => {
 				let successData = {};
-				successData["statusCode"] = response.status;
-				successData["statusText"] = response.statusText;
+				successData["twilioStatusCode"] = response.status;
+				successData["twilioStatusText"] = response.statusText;
 				successData["recipientNumber"] = recipient;
 				successData["messageContent"] = message;
 				successData["twilioMessageSID"] = response.data.sid;
 				successData["dateCreated"] = new Date(response.data.date_created).toISOString();
+<<<<<<< HEAD
 				logger.info('succces twilio sms');
 				resolve(response.status);
+=======
+				resolve(successData);
+				logger.info('succces twilio sms');
+>>>>>>> c1480496a37c13380d21dbd79004909a144356bc
 			})
 			.catch((error) => {
 				let errorData = {};
-				errorData["statusCode"] = error.response.status;
-				errorData["statusText"] = error.response.statusText;
+				errorData["twilioStatusCode"] = error.response.status;
+				errorData["twilioStatusText"] = error.response.statusText;
 				errorData["recipientNumber"] = recipient;
 				errorData["messageContent"] = message;
 				errorData["twilioErrorCode"] = error.response.data.code;
 				errorData["twilioErrorMessage"] = error.response.data.message;
+<<<<<<< HEAD
 				logger.error('error twilio sms');
 				console.log(error.response.data.message);
 				reject(response.status);
+=======
+				resolve(errorData);
+				logger.error('error twilio sms');
+>>>>>>> c1480496a37c13380d21dbd79004909a144356bc
 			});
 		});
 	}
