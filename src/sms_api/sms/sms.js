@@ -13,17 +13,14 @@ router.use(bodyParser.json());
 
 router.post('/sendSMS', function (req, res) {
 	
-	var messages = req.body.messages;
-	var requests = [];
+	var messages = req.body;
 
-	messages.forEach((messageDetail) => {
-		var recipientNumber = messageDetail.recipient;
-		var messageContent = messageDetail.messageContent;
+	Promise.all(
+		messages.map(message => {
+	    return twilioREST.sendMessage(message.messageContent, message.recipient);
+	  })
 
-		requests.push(twilioREST.sendMessage(messageContent, recipientNumber));
-	});
-	
-	Promise.all(requests)
+	)
 	.then(function(response) {
 		res.status(200).send(response);
 	})
