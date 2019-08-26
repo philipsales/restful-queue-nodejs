@@ -13,7 +13,6 @@ var bindingKeys = ['notification_events']
 
 const opt = { credentials: require('amqplib').credentials.plain(process.env.RABBIT_USERNAME, process.env.RABBIT_PASSWORD) };
 
-
 amqp.connect(`${process.env.RABBIT_PROTOCOL}://${process.env.RABBIT_HOST}:${process.env.RABBIT_PORT}`, opt, function(error0, connection) {
   if (error0) {
     throw error0;
