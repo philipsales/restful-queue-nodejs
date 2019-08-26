@@ -1,22 +1,23 @@
 {
-    "local": {
-        "HOST": "localhost",
-        "PORT": 3001,
-        "DB_PORT": 27017,
-        "DATABASE": "",
-        "DATABASE_URI": "",
-        "USERNAME": "",
-        "PASSWORD": "",
-        "JWT_SECRET": "SADWDAWADAcasdadwadacawdawd1213!@12121212"
-    },
-    "test": {
-        "HOST": "localhost",
-        "PORT": 3001,
-        "DB_PORT": 27017,
-        "DATABASE": "",
-        "DATABASE_URI": "",
-        "USERNAME": "",
-        "PASSWORD": "",
-        "JWT_SECRET": "SADWDAWADAcasdadwadacawdawd1213!@12121212"
-    }
+  "local": {
+    "HOST": "localhost",
+    "PROTOCOL": "http",
+    "LOG_PATH": "logs/",
+    "PORT": 3003,
+    "SENDGRID_API_KEY": "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"
+  },
+  "production": {
+    "HOST": "localhost",
+    "PROTOCOL": "http",
+    "LOG_PATH": "logs/",
+    "PORT": 3003,
+    "SENDGRID_API_KEY": "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"
+  },
+  "development": {
+    "HOST": "172.104.54.251",
+    "PROTOCOL": "http",
+    "LOG_PATH": "logs/",
+    "PORT": 3003,
+    "SENDGRID_API_KEY": "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"
+  }
 }

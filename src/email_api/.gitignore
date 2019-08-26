@@ -1,0 +1,10 @@
+node_modules
+*.*~
+.DS_Store
+
+e2e/node_modules
+uploads/mtas/*
+uploads/consent_templates/*
+mongodata
+server/config/config.json
+sendgrid.env
