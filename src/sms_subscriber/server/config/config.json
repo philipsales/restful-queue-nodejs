@@ -24,8 +24,10 @@
         "RABBIT_PROTOCOL": "amqp",
         "RABBIT_USERNAME": "RabbitMQAdmin",
         "RABBIT_PASSWORD": "RabbitAdm(1)n@AWH",
-        "MSGS_PROTOCOL": "https://",
-        "MSGS_HOST": "871c95fd.ngrok.io/",
+        "MSGS_PROTOCOL": "http://",
+        "MSGS_HOST": "0.0.0.0",
+        "MSGS_PORT": "3002",
+        "MSGS_URI": "http://localhost:3002/",
         "MSGS_SMS_CHANNEL": "sms/",
         "MSGS_SMS_ENDPOINT": "sendSMS"
     }

@@ -13,7 +13,7 @@ logger.info("listening.. '%s'", `${process.env.RABBIT_PROTOCOL}://${process.env.
 
 const opt = { credentials: require('amqplib')
   .credentials.plain(process.env.RABBIT_USERNAME, process.env.RABBIT_PASSWORD) };
-  
+
 amqp.connect(`${process.env.RABBIT_PROTOCOL}://${process.env.RABBIT_HOST}:${process.env.RABBIT_PORT}`, opt, function(error0, connection) {
   if (error0) {
     throw error0;
@@ -47,7 +47,7 @@ amqp.connect(`${process.env.RABBIT_PROTOCOL}://${process.env.RABBIT_HOST}:${proc
 
       channel.consume(q.queue, function(data) {
         logger.info("[x] Received Data from RabbitMQ routing key: '%s'", data.fields.routingKey);
-        logger.info("[x] Received Data from RabbitMQ data: '%s'", data.content.toString());
+        logger.info("[x] Received Data from RabbitMQ data: ");
 
         var body = data.content.toString();
         notificationAPI(body);
@@ -96,7 +96,8 @@ function notificationAPI(body){
 
   const options = {
       method: 'POST',
-      uri: 'http://localhost:3002/sms/sendSMS/',
+      uri: process.env.MSGS_URI,
+      //uri: 'http://localhost:3002/sms/sendSMS/',
       body: _body,
       json: true,
       headers: {
