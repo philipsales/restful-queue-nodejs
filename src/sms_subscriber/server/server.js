@@ -1,28 +1,31 @@
 #!/usr/bin/env node
 require('./config/config');
 var request = require('request-promise');
-const axios = require('axios');
+var amqp = require('amqplib/callback_api');
 
 const log = require('../lib/logger/logger').logger;
 const file = require('../lib/logger/util/filename');
 const logger = log.child({ sourceFile: file.setFilename(__filename) });
 
-var amqp = require('amqplib/callback_api');
-var binding_keys = ['notification_events']
+const binding_keys = [ process.env.RABBIT_BINDING_KEYS ];
 
+logger.info("listening.. '%s'", `${process.env.RABBIT_PROTOCOL}://${process.env.RABBIT_HOST}:${process.env.RABBIT_PORT}`); 
 
 const opt = { credentials: require('amqplib')
   .credentials.plain(process.env.RABBIT_USERNAME, process.env.RABBIT_PASSWORD) };
+  
 amqp.connect(`${process.env.RABBIT_PROTOCOL}://${process.env.RABBIT_HOST}:${process.env.RABBIT_PORT}`, opt, function(error0, connection) {
   if (error0) {
     throw error0;
   }
+  
   connection.createChannel(function(error1, channel) {
     if (error1) {
       throw error1;
     }
 
-    var exchange = 'amqp.topic.sms-requests';
+   //var exchange = 'amqp.topic.sms-requests';
+   let exchange = process.env.RABBIT_EXCHANGE;
 
     channel.assertExchange(exchange, 'topic', {
       durable: true 
@@ -35,21 +38,17 @@ amqp.connect(`${process.env.RABBIT_PROTOCOL}://${process.env.RABBIT_HOST}:${proc
       if (error2) {
         throw error2;
       }
+
       logger.info('[*] Waiting for logs..');
 
       binding_keys.forEach(function(key) {
         channel.bindQueue(q.queue, exchange, key);
       });
 
-      /*
-      args.forEach(function(key) {
-        channel.bindQueue(q.queue, exchange, key);
-      });
-      */
-
       channel.consume(q.queue, function(data) {
         logger.info("[x] Received Data from RabbitMQ routing key: '%s'", data.fields.routingKey);
         logger.info("[x] Received Data from RabbitMQ data: '%s'", data.content.toString());
+
         var body = data.content.toString();
         notificationAPI(body);
 
@@ -90,28 +89,14 @@ function notificationAPI(body){
 
 
 function notificationAPI(body){
-  //TODO: move the notificationAPI function to separate module
-  //TODO: substitute the var _body with paramater body 
-  // var _body = body
-
-  /*
-  var _body = body;
-  var _body = {
-    "message": {
-      "recipient": "+639661191865",
-      "messageContent": "string"
-    }
-  }
-  */
+  logger.info('notificaitonAPI');
 
   var _body = JSON.parse(body);
   logger.info("Data sent to SMS API");
 
-  var _response;
-
   const options = {
       method: 'POST',
-      uri: 'http://localhost:3002/sms/sendSMS',
+      uri: 'http://localhost:3002/sms/sendSMS/',
       body: _body,
       json: true,
       headers: {

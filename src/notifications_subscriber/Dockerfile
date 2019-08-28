@@ -6,5 +6,4 @@ COPY package.json /usr/src/gateway_api/
 COPY package-lock.json /usr/src/gateway_api/
 RUN npm install
 COPY . /usr/src/gateway_api
-EXPOSE 3001
-CMD ["npm run dev"]
+CMD ["node", "server/server.js"]

@@ -2,10 +2,11 @@ require('./config/config');
 
 const express = require('express');
 const cors = require('cors');
+
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger.json');
+
 const sms = require('../sms/sms');
-const port = process.env.PORT;
 const app = express();
 
 app.use(cors())
@@ -23,8 +24,8 @@ app.use('/api-docs',
 
 app.use('/sms', sms);
 
-app.listen(port, () => {
-	console.log(`Started on port ${process.env.HOST}:${port}`);
+app.listen(process.env.PORT, () => {
+	console.log(`Started on port ${process.env.HOST}:${process.env.PORT}`);
 });
 
 module.exports = app;

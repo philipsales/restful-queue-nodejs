@@ -49,6 +49,7 @@ amqp.connect(`${process.env.RABBIT_PROTOCOL}://${process.env.RABBIT_HOST}:${proc
         var residentID = arguments.residentID;
         var messageCode = arguments.messageCode;
 
+        logger.info("MPI..'%s'",`${process.env.MPI_PROTOCOL}${process.env.MPI_HOST}${process.env.MPI_ENDPOINT}/${residentID}`)
         axios.get(`${process.env.MPI_PROTOCOL}${process.env.MPI_HOST}${process.env.MPI_ENDPOINT}/${residentID}`)
             .then(result => {
 

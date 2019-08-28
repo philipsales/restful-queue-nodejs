@@ -3,10 +3,8 @@ require('./config/config');
 const express = require('express');
 var cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
-const yargs = require('yargs');
 
 const swaggerDocument = require('../swagger.json');
-//var {mongoose} = require('./db/mongoose');
 var notifications = require('../notifications/notifications');
 
 const port = process.env.PORT;

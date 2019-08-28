@@ -12,6 +12,7 @@ router.use(bodyParser.json());
 
 router.post('/sendSMS', function (req, res) {
 	
+	logger.info('/sendSMS');
 	var messages = req.body;
 
 	Promise.all(
@@ -26,6 +27,7 @@ router.post('/sendSMS', function (req, res) {
 	})
 	.catch(function(error){
 		logger.error(error);
+		res.status(401).send(response);
 	});
 	
 });

@@ -36,6 +36,8 @@
   },
   "scripts": {
     "start": "node server/server.js",
+    "local": "NODE_ENV=local nodemon server/server.js",
+    "dev": "NODE_ENV=development nodemon server/server.js",
     "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && mocha **/**/spectypes.*.js --exit",
     "test-watch": "nodemon --exec 'npm test'"
   },
