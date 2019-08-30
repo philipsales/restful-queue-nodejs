@@ -5,7 +5,7 @@
     "version": "0.1"
   },
   "paths": {
-    "/email": {
+    "/email/": {
       "post": {
         "summary": "Send a single/bulk email message/s",
         "description": "Sending email message/s to each recipient number.",
@@ -46,7 +46,8 @@
         "type": "object",
         "properties": {
           "recipient": {
-            "type": "string"
+            "type": "string",
+            "enum": "robert@alliedworld.healthcare"
           },
           "recipientName": {
             "type": "string"
@@ -55,7 +56,8 @@
             "type": "string"
           },
           "messageCode": {
-            "type": "string"
+            "type": "string",
+            "enum": "dispergo_rejected"
           }
         }
       }

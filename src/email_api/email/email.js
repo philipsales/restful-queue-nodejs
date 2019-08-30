@@ -12,11 +12,9 @@ sendGridMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 router.post("/", async (req, res) => {
   const messages = req.body;
-
   try {
     let emails = await templateProvider(messages);
-
-    if (emails.length !== 0) {
+    if (emails.length !== -1) {
       emails.forEach(async (email, index, arr) => {
         await sendGridMail.send(email);
 
