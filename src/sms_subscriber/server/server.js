@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 require('./config/config');
 var request = require('request-promise');
+var axios = require('axios');
 var amqp = require('amqplib/callback_api');
 
 const log = require('../lib/logger/logger').logger;
@@ -47,7 +48,6 @@ amqp.connect(`${process.env.RABBIT_PROTOCOL}://${process.env.RABBIT_HOST}:${proc
 
       channel.consume(q.queue, function(data) {
         logger.info("[x] Received Data from RabbitMQ routing key: '%s'", data.fields.routingKey);
-        logger.info("[x] Received Data from RabbitMQ data: ");
 
         var body = data.content.toString();
         notificationAPI(body);
@@ -60,60 +60,22 @@ amqp.connect(`${process.env.RABBIT_PROTOCOL}://${process.env.RABBIT_HOST}:${proc
 });
 
 
-/*
 function notificationAPI(body){
-  //TODO: move the notificationAPI function to separate module
-  //TODO: substitute the var _body with paramater body 
-  // var _body = body
   var messages = JSON.parse(body);
-  logger.info("POST /sms API '%s'",process.env.MSGS_PROTOCOL);
 
+  logger.info("POST '%s'", `${process.env.MSGS_URI}`);
+  axios.post(`${process.env.MSGS_URI}`, messages)
 
-  axios.post(`${process.env.MSGS_PROTOCOL}${process.env.MSGS_HOST}${process.env.MSGS_SMS_CHANNEL}${process.env.MSGS_SMS_ENDPOINT}`, { messages })
     .then((response) => {
-      logger.info(response);
-
-      if (response.status == 201) {
+      if (response.status == 200) {
         logger.info('SMS-SUBSCRIBER', 'sending alert was a success!');
       }
 
-      logger.info('SMS-SUBSCRIBER', `status code: ${response.status}`);
+      logger.info('SMS-SUBSCRIBER ', `status code: ${response.status}`);
+    }).catch(function(error){
+      logger.error("SMS subscriber error response '%s'", error.message);
 
-  }).catch(function(error){
-    logger.error(error);
-
-  });
+    });
 
 }
-*/
 
-
-function notificationAPI(body){
-  logger.info('notificaitonAPI');
-
-  var _body = JSON.parse(body);
-  logger.info("Data sent to SMS API");
-
-  const options = {
-      method: 'POST',
-      uri: process.env.MSGS_URI,
-      //uri: 'http://localhost:3002/sms/sendSMS/',
-      body: _body,
-      json: true,
-      headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-      }
-  }
-
-  request(options)
-    .then(function (payload){
-        _response = payload;
-        logger.info("Success response of SMS API '%s'", response);
-    }).catch(function (err) {
-        logger.error("Error response of SMS API");
-        logger.error(err);
-  });
-
-  return
-}

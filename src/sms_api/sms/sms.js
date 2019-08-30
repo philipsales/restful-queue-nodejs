@@ -14,6 +14,7 @@ router.post('/sendSMS', function (req, res) {
 	
 	logger.info('/sendSMS');
 	var messages = req.body;
+	logger.info("messages '%s'", messages);
 
 	Promise.all(
 		messages.map(message => {
@@ -26,8 +27,8 @@ router.post('/sendSMS', function (req, res) {
 		res.status(200).send(response);
 	})
 	.catch(function(error){
-		logger.error(error);
-		res.status(401).send(response);
+		logger.error("SMS API error response '%s'",error);
+		res.status(500).send(error);
 	});
 	
 });

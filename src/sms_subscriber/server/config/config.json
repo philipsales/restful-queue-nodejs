@@ -7,12 +7,14 @@
         "RABBIT_BINDING_KEYS": "notification_events",
         "RABBIT_PORT": "5672",
         "RABBIT_PROTOCOL": "amqp",
-        "RABBIT_USERNAME": "miko",
-        "RABBIT_PASSWORD": "miko",
+        "RABBIT_USERNAME": "RabbitMQAdmin",
+        "RABBIT_PASSWORD": "RabbitAdm(1)n@AWH",
         "MSGS_PROTOCOL": "https://",
-        "MSGS_HOST": "871c95fd.ngrok.io/",
+        "MSGS_HOST": "0.0.0.0",
+        "MSGS_PORT": "3003",
+        "MSGS_URI": "http://0.0.0.0:3003/sms/sendSMS/",
         "MSGS_SMS_CHANNEL": "sms/",
-        "MSGS_SMS_ENDPOINT": "sendSMS"
+        "MSGS_SMS_ENDPOINT": "sendSMS/"
     },
     "development": {
         "HOST": "0.0.0.0",
@@ -26,9 +28,9 @@
         "RABBIT_PASSWORD": "RabbitAdm(1)n@AWH",
         "MSGS_PROTOCOL": "http://",
         "MSGS_HOST": "0.0.0.0",
-        "MSGS_PORT": "3002",
-        "MSGS_URI": "http://localhost:3002/",
-        "MSGS_SMS_CHANNEL": "sms/",
-        "MSGS_SMS_ENDPOINT": "sendSMS"
+        "MSGS_PORT": "3003",
+        "MSGS_URI": "http://0.0.0.0:3003/sms/sendSMS/",
+        "MSGS_SMS_CHANNEL": "sms",
+        "MSGS_SMS_ENDPOINT": "sendSMS/"
     }
 }

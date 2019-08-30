@@ -36,8 +36,8 @@ function sendMessage(message, recipient){
 				successData["messageContent"] = message;
 				successData["twilioMessageSID"] = response.data.sid;
 				successData["dateCreated"] = new Date(response.data.date_created).toISOString();
-				resolve(successData);
 				logger.info('succces twilio sms');
+				resolve(successData);
 			})
 			.catch((error) => {
 				let errorData = {};
@@ -47,9 +47,9 @@ function sendMessage(message, recipient){
 				errorData["messageContent"] = message;
 				errorData["twilioErrorCode"] = error.response.data.code;
 				errorData["twilioErrorMessage"] = error.response.data.message;
-				logger.error('error twilio sms');
+				logger.error("Error twilio sms '%s'", error.message);
+				reject(errorData);
 				console.log(error.response.data.message);
-				reject(response.status);
 			});
 		});
 	}
