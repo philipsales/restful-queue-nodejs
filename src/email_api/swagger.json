@@ -1,30 +1,27 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Notifications API",
+    "title": "Email API",
     "version": "0.1"
   },
   "paths": {
-    "/notifications/appointments": {
+    "/email/": {
       "post": {
-        "summary": "Create an appointment notification",
-        "description": "Adds a new notification to the notification's list",
+        "summary": "Send a single/bulk email message/s",
+        "description": "Sending email message/s to each recipient number.",
         "parameters": [
           {
-            "name": "notification",
+            "name": "Emails",
             "in": "body",
-            "description": "The notification to create.",
+            "description": "Email object to be send",
             "schema": {
-              "$ref": "#/definitions/notification"
+              "$ref": "#/definitions/email"
             }
           }
         ],
         "responses": {
           "201": {
-            "description": "notification successfully created.",
-            "schema": {
-              "$ref": "#/definitions/notification"
-            }
+            "description": "Created"
           },
           "400": {
             "$ref": "#/responses/Standard400ErrorResponse"
@@ -34,104 +31,34 @@
           }
         }
       }
-    },
-    "/notifications/orders": {
-      "post": {
-        "summary": "Create an order notification",
-        "description": "Adds a new notification to the notification's list",
-        "parameters": [
-          {
-            "name": "notification",
-            "in": "body",
-            "description": "The notification to create.",
-            "schema": {
-              "$ref": "#/definitions/notification"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "notification successfully created.",
-            "schema": {
-              "$ref": "#/definitions/notification"
-            }
-          },
-          "400": {
-            "$ref": "#/responses/Standard400ErrorResponse"
-          },
-          "500": {
-            "$ref": "#/responses/Standard500ErrorResponse"
-          }
-        }
-      }
-    }
-  },
-  "parameters": {
-    "jwtAuthorization": {
-      "name": "Authorization",
-      "description": "JWT token",
-      "type": "string",
-      "in": "header",
-      "required": true
     }
   },
   "definitions": {
-    "notification": {
-      "required": [
-        "notificationname"
-      ],
-      "properties": {
-        "id": {
-          "type": "integer",
-          "readOnly": true
-        },
-        "notificationname": {
-          "type": "string"
-        },
-        "permissions": {
-          "type": "array",
-          "items": {
+    "email": {
+      "type": "array",
+      "items": {
+        "required": [
+          "recipient",
+          "recipientName",
+          "messageContent",
+          "messageCode"
+        ],
+        "type": "object",
+        "properties": {
+          "recipient": {
+            "type": "string",
+            "enum": "robert@alliedworld.healthcare"
+          },
+          "recipientName": {
             "type": "string"
+          },
+          "messageContent": {
+            "type": "string"
+          },
+          "messageCode": {
+            "type": "string",
+            "enum": "dispergo_rejected"
           }
-        },
-        "isActive": {
-          "type": "boolean"
-        }
-      }
-    },
-    "notifications": {
-      "properties": {
-        "data": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/notification"
-          }
-        }
-      }
-    },
-    "Error": {
-      "properties": {
-        "code": {
-          "type": "string"
-        },
-        "errors": {
-          "type": "array",
-          "items": {
-            "properties": {
-              "field": {
-                "type": "string"
-              },
-              "error": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "userMessage": {
-          "type": "string"
-        },
-        "internalMessage": {
-          "type": "string"
         }
       }
     }
@@ -141,10 +68,7 @@
       "description": "An unexpected error occured."
     },
     "Standard400ErrorResponse": {
-      "description": "Incorrect parameters submitted.",
-      "schema": {
-        "$ref": "#/definitions/Error"
-      }
+      "description": "Incorrect parameters submitted."
     },
     "Standard401ErrorResponse": {
       "description": "Unauthorized"
