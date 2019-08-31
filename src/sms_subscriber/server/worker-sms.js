@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 require('./config/config');
-var request = require('request-promise');
+
 var axios = require('axios');
 var amqp = require('amqplib/callback_api');
 
