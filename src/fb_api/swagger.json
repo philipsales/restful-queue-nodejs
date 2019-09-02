@@ -1,0 +1,119 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "SMS API",
+    "version": "0.1"
+  },
+  "paths": {
+    "/sms/sendSMS/": {
+      "post": {
+        "summary": "Send a single/bulk SMS message/s",
+        "description": "Sending SMS message/s to each recipient number.",
+        "parameters": [
+          {
+            "name": "Message/s",
+            "in": "body",
+            "description": "Requires at least a single item containing message content and recipient mobile number in the messages list.",
+            "schema": {
+              "$ref": "#/definitions/sms"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Message/s successfully sent.",
+            "schema": {
+              "$ref": "#/definitions/smsResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "$ref": "#/responses/Standard400ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/Standard500ErrorResponse"
+          }
+        }
+      }
+    }
+  },
+  "parameters": {
+    "jwtAuthorization": {
+      "name": "Authorization",
+      "description": "JWT token",
+      "type": "string",
+      "in": "header",
+      "required": true
+    }
+  },
+  "definitions": {
+    "sms": {
+      "type" : "array",
+      "items" : {
+        "properties" : {
+        "required": [
+          "recipient",
+          "messageContent"],
+       
+          "recipient": {
+            "type": "string"
+          },
+          "messageContent": {
+            "type": "string"
+          }        
+        }
+      }
+    },
+    "smsResponse" : {
+      "type" : "array",
+      "items" : {
+        "properties":{
+          "twilioStatusCode": {
+            "type" : "integer"
+          },
+          "twilioStatusText": {
+            "type" : "string"
+          },
+          "recipientNumber" : {
+            "type" : "string"
+          },
+          "messageContent" : {
+            "type" : "string"
+          },
+          "twilioMessageSID" : {
+            "type" : "string"
+          },
+          "dateCreated" : {
+            "type" : "string"
+          },
+          "twilioErrorCode" : {
+            "type" : "integer"
+          },
+          "twilioErrorMessage" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  },
+  "responses": {
+    "Standard500ErrorResponse": {
+      "description": "An unexpected error occured."
+    },
+    "Standard400ErrorResponse": {
+      "description": "Incorrect parameters submitted."
+    },
+    "Standard401ErrorResponse": {
+      "description": "Unauthorized"
+    },
+    "Standard404ErrorResponse": {
+      "description": "Resource does not exists."
+    },
+    "Standard409ErrorResponse": {
+      "description": "Your app is making too many requests and is being rate limited. 429s can trigger on a per-app or per-user basis."
+    }
+  }
+}
+

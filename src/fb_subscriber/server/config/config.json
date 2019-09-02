@@ -1,0 +1,34 @@
+{
+    "local": {
+        "PORT": 3002,
+        "HOST": "localhost",
+        "LOG_PATH": "logs/",
+        "RABBIT_HOST": "localhost",
+        "RABBIT_PORT": "5672",
+        "RABBIT_PROTOCOL": "amqp",
+        "RABBIT_USERNAME": "miko",
+        "RABBIT_PASSWORD": "miko",
+        "RABBIT_EXAMPLE": "amqp://192.168.0.145:5672",
+        "MSGS_PROTOCOL": "https://",
+        "MSGS_HOST": "871c95fd.ngrok.io/",
+        "MSGS_SMS_CHANNEL": "sms/",
+        "MSGS_SMS_ENDPOINT": "sendSMS"
+    },
+    "development": {
+        "PORT": 3002,
+        "HOST": "172.104.181.7",
+        "LOG_PATH": "logs/",
+        "RABBIT_HOST": "172.104.54.251",
+        "RABBIT_PORT": "5672",
+        "RABBIT_PROTOCOL": "amqp",
+        "RABBIT_USERNAME": "RabbitMQAdmin",
+        "RABBIT_PASSWORD": "RabbitAdm(1)n@AWH",
+        "RABBIT_EXAMPLE": "amqp://192.168.0.145:5672",
+        "BOT_ID": "5d463c349919bc00017b0a27",
+        "CHATFUEL_TOKEN": "mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD",
+        "MSGS_PROTOCOL": "https://",
+        "MSGS_HOST": "871c95fd.ngrok.io/",
+        "MSGS_SMS_CHANNEL": "sms/",
+        "MSGS_SMS_ENDPOINT": "sendSMS"
+    }
+}
