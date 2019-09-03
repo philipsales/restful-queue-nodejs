@@ -7,6 +7,6 @@ metadata:
 spec:
   containers:
   - name: sms-api
-    image: peejayaccts/sms_api:1.0.0
+    image: peejayaccts/sms_api:1.1.1
     ports:
-    - containerPort: 3001
+    - containerPort: 3003

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sms-subscriber
+  labels:
+    name: sms-subscriber
+spec:
+  containers:
+  - name: sms-subscriber
+    image: peejayaccts/sms_subscriber:latest
+    ports:
+    - containerPort: 3001

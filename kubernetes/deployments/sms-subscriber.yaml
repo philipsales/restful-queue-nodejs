@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sms-subscriber-deployment
+  labels:
+    app: sms-subscriber
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sms-subscriber
+  template:
+    metadata:
+      labels:
+        app: sms-subscriber
+    spec:
+      containers:
+      - name: sms-subscriber
+        image: peejayaccts/sms_subscriber
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 3001
