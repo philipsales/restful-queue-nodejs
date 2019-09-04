@@ -5,11 +5,7 @@
     "version": "0.1"
   },
   "paths": {
-<<<<<<< HEAD
     "/fb/notification": {
-=======
-    "/fb": {
->>>>>>> master
       "post": {
         "summary": "Send a single/bulk FB message/s to target account",
         "description": "Sending FB message/s to each recipient messenger id.",
