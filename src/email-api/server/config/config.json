@@ -1,0 +1,23 @@
+{
+  "local": {
+    "HOST": "localhost",
+    "PROTOCOL": "http",
+    "LOG_PATH": "logs/",
+    "PORT": 3003,
+    "SENDGRID_API_KEY": "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"
+  },
+  "production": {
+    "HOST": "localhost",
+    "PROTOCOL": "http",
+    "LOG_PATH": "logs/",
+    "PORT": 3003,
+    "SENDGRID_API_KEY": "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"
+  },
+  "development": {
+    "HOST": "172.104.54.251",
+    "PROTOCOL": "http",
+    "LOG_PATH": "logs/",
+    "PORT": 3003,
+    "SENDGRID_API_KEY": "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"
+  }
+}
