@@ -1,21 +1,21 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "SMS API",
+    "title": "FB API",
     "version": "0.1"
   },
   "paths": {
-    "/sms/sendSMS/": {
+    "/fb": {
       "post": {
-        "summary": "Send a single/bulk SMS message/s",
-        "description": "Sending SMS message/s to each recipient number.",
+        "summary": "Send a single/bulk FB message/s to target account",
+        "description": "Sending FB message/s to each recipient messenger id.",
         "parameters": [
           {
             "name": "Message/s",
             "in": "body",
             "description": "Requires at least a single item containing message content and recipient mobile number in the messages list.",
             "schema": {
-              "$ref": "#/definitions/sms"
+              "$ref": "#/definitions/fb"
             }
           }
         ],
@@ -23,11 +23,8 @@
           "200": {
             "description": "Message/s successfully sent.",
             "schema": {
-              "$ref": "#/definitions/smsResponse"
+              "$ref": "#/definitions/fb"
             }
-          },
-          "201": {
-            "description": "Created"
           },
           "400": {
             "$ref": "#/responses/Standard400ErrorResponse"
@@ -49,51 +46,25 @@
     }
   },
   "definitions": {
-    "sms": {
+    "fb": {
       "type" : "array",
       "items" : {
-        "properties" : {
         "required": [
-          "recipient",
+          "messenger_id",
+          "blockName",
           "messageContent"],
-       
-          "recipient": {
-            "type": "string"
-          },
-          "messageContent": {
-            "type": "string"
-          }        
-        }
-      }
-    },
-    "smsResponse" : {
-      "type" : "array",
-      "items" : {
-        "properties":{
-          "twilioStatusCode": {
-            "type" : "integer"
-          },
-          "twilioStatusText": {
-            "type" : "string"
-          },
-          "recipientNumber" : {
-            "type" : "string"
-          },
-          "messageContent" : {
-            "type" : "string"
-          },
-          "twilioMessageSID" : {
-            "type" : "string"
-          },
-          "dateCreated" : {
-            "type" : "string"
-          },
-          "twilioErrorCode" : {
-            "type" : "integer"
-          },
-          "twilioErrorMessage" : {
-            "type" : "string"
-          }
+		"type":"object",
+        "properties" : {
+				"messenger_id": {
+				"type": "string"
+			},
+				"blockName": {
+				"type": "string",
+				"enum": "Single Message Content"
+			},
+				"messageContent": {
+				"type": "string"
+			}        
         }
       }
     }

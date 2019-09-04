@@ -4,7 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger.json');
-const sms = require('../sms/sms');
+const fb = require('../fb/fb');
 const port = process.env.PORT;
 const app = express();
 
@@ -21,7 +21,7 @@ app.use('/api-docs',
 	swaggerUi.serve, 
 	swaggerUi.setup(swaggerDocument));
 
-app.use('/sms', sms);
+app.use('/fb', fb);
 
 app.listen(port, () => {
 	console.log(`Started on port ${process.env.HOST}:${port}`);

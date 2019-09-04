@@ -3,6 +3,7 @@ require('./config/config');
 var request = require('request-promise');
 const axios = require('axios');
 const url = require('url');
+const requestPromise = require('request-promise');
 
 const log = require('../lib/logger/logger').logger;
 const file = require('../lib/logger/util/filename');
