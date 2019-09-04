@@ -12,7 +12,7 @@ const logger = log.logger.child({ sourceFile: log.file.setFilename(__filename) }
 
 router.use(bodyParser.json());
 
-router.post('/', function (req, res) {
+router.post('/notification', function (req, res) {
     const BOT_ID = process.env.BOT_ID;
     const CHATFUEL_TOKEN = process.env.CHATFUEL_TOKEN;
     
