@@ -10,7 +10,7 @@ const logger = log.logger.child({
 
 sendGridMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-router.post("/", async (req, res) => {
+router.post("/notification", async (req, res) => {
   const messages = req.body;
   try {
     let emails = await templateProvider(messages);

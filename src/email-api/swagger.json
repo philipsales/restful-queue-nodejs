@@ -5,7 +5,7 @@
     "version": "0.1"
   },
   "paths": {
-    "/email/": {
+    "/email/notification": {
       "post": {
         "summary": "Send a single/bulk email message/s",
         "description": "Sending email message/s to each recipient number.",
