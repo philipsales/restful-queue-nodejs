@@ -20,7 +20,7 @@ router.post('/notification', function (req, res) {
     const blockName = req.body[0].blockName;
 	const messageContent = req.body[0].messageContent;
 
-    const broadcastApiUrl = `https://api.chatfuel.com/bots/${BOT_ID}/users/${userId}/send`;
+    const broadcastApiUrl = process.env.CHATFUEL_BROADCAST_URL + `${BOT_ID}/users/${userId}/send`;
 
     const query = Object.assign({
             chatfuel_token: CHATFUEL_TOKEN,

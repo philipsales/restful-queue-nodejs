@@ -5,7 +5,8 @@
         "LOG_PATH": "logs/",
         "PORT": 3004,
         "BOT_ID": "5d463c349919bc00017b0a27",
-        "CHATFUEL_TOKEN": "mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD"
+        "CHATFUEL_TOKEN": "mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD",
+		"CHATFUEL_BROADCAST_URL": "https://api.chatfuel.com/bots/"
     },
     "development": {
         "HOST": "172.104.54.251",
@@ -13,7 +14,8 @@
         "LOG_PATH": "logs/",
         "PORT": 3004,
         "BOT_ID": "5d463c349919bc00017b0a27",
-        "CHATFUEL_TOKEN": "mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD"
+        "CHATFUEL_TOKEN": "mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD",
+		"CHATFUEL_BROADCAST_URL": "https://api.chatfuel.com/bots/"
 
     }
 }
