@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 require('./config/config');
 var request = require('request-promise');
-const axios = require('axios');
 const url = require('url');
-const requestPromise = require('request-promise');
 
 const log = require('../lib/logger/logger').logger;
 const file = require('../lib/logger/util/filename');
@@ -24,7 +22,7 @@ amqp.connect(`${process.env.RABBIT_PROTOCOL}://${process.env.RABBIT_HOST}:${proc
       throw error1;
     }
 
-    var exchange = 'amqp.topic.sms-requests';
+    var exchange = 'amqp.topic.fb-requests';
 
     channel.assertExchange(exchange, 'topic', {
       durable: true 
