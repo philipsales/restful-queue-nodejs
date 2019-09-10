@@ -1,37 +1,29 @@
 {
   "name": "email-subscriber",
   "version": "1.0.0",
-  "description": "API for Notification",
-  "main": "app.js",
+  "description": "API for Email",
+  "main": "worker-email.js",
   "dependencies": {
     "amqplib": "^0.5.5",
     "axios": "^0.19.0",
-    "body-parser": "^1.18.2",
-    "cors": "^2.8.4",
-    "express": "^4.16.2",
-    "lodash": "^4.17.15",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.4",
-    "swagger-ui-express": "^2.0.13",
-    "winston": "^3.2.1",
-    "yargs": "^10.1.1"
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "child_process": "^1.0.2",
     "nodemon": "^1.19.1"
   },
   "scripts": {
-    "start": "node server/server.js",
-    "local": "NODE_ENV=local node server/server.js",
-    "dev": "NODE_ENV=development node server/server.js",
+    "start": "node server/worker-email.js",
+    "local": "NODE_ENV=local nodemon server/worker-email.js",
+    "dev": "NODE_ENV=development nodemon server/worker-email.js",
     "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && mocha **/**/spectypes.*.js --exit",
     "test-watch": "nodemon --exec 'npm test'"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://bitbucket.org/tiusales_team/biobankapi2.git"
+    "url": "git+https://philipsales@bitbucket.org/awhdatateam/notifications-pipeline.git"
   },
-  "author": "Kristhian Tiu",
+  "author": "Philip Sales",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/tiusales_team/biobankapi2#readme"
+  "homepage": "https://philipsales@bitbucket.org/awhdatateam/notifications-pipeline#readme"
 }

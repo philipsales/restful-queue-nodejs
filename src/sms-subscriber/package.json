@@ -1,7 +1,7 @@
 {
   "name": "sms-subscriber",
   "version": "1.0.0",
-  "description": "API for Notification",
+  "description": "API for SMS",
   "main": "worker-sms.js",
   "dependencies": {
     "amqplib": "^0.5.5",

@@ -23,13 +23,11 @@
   "scripts": {
     "start": "node server/server.js",
     "local": "NODE_ENV=local nodemon server/server.js",
-    "dev": "NODE_ENV=development nodemon server/server.js",
-    "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && mocha **/**/spectypes.*.js --exit",
-    "test-watch": "nodemon --exec 'npm test'"
+    "dev": "NODE_ENV=development nodemon server/server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://bitbucket.org/tiusales_team/biobankapi2.git"
+    "url": "git+https://bitbucket.org/awhdatateam/notifications-pipeline.git"
   },
   "author": "Kristhian Tiu",
   "license": "ISC",
