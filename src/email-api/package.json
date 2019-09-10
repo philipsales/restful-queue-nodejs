@@ -11,7 +11,7 @@
     "cors": "^2.8.4",
     "couchbase": "^2.6.6",
     "express": "^4.16.2",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "request-promise": "^4.2.4",
     "swagger-ui-express": "^2.0.13",
     "validator": "^9.2.0",
@@ -19,12 +19,9 @@
     "yargs": "^10.1.1"
   },
   "devDependencies": {
-    "@angular-devkit/core": "^0.8.4",
-    "@angular/cli": "^1.6.3",
     "child_process": "^1.0.2",
     "expect": "^22.0.3",
-    "nodemon": "^1.14.7",
-    "supertest": "^3.0.0"
+    "nodemon": "^1.19.2"
   },
   "scripts": {
     "start": "node server/server.js",

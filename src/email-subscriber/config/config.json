@@ -12,7 +12,7 @@
         "DUMP_DIR" : "./../dump/"
     },
     "development": {
-        "HOST": "localhost",
+        "HOST": "172.104.181.7",
         "PORT": 3001,
         "DB_PORT": 27017,
         "DATABASE": "BiobankAPI",
@@ -24,7 +24,7 @@
         "DUMP_DIR" : "./../dump/"
     },
     "production": {
-        "HOST": "172.104.181.7"
+        "HOST": "172.104.181.7",
         "PORT": 3001,
         "DB_PORT": 27017,
         "DATABASE": "BiobankAPI",
