@@ -3,7 +3,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const router = express.Router();
-const twilioREST = require('../util/twilio_rest');
 const url = require('url');
 const requestPromise = require('request-promise');
 
