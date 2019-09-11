@@ -1,12 +1,15 @@
 {
-  "name": "sms-api",
+  "name": "fb-api",
   "version": "1.0.0",
-  "description": "API for SMS Messaging",
+  "description": "API for FB messenger",
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
+    "ejs": "^2.7.1",
     "express": "^4.16.2",
+    "path": "^0.12.7",
+    "randomstring": "^1.1.5",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "swagger-ui-express": "^2.0.13",
@@ -25,9 +28,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://cristopher96@bitbucket.org/awhdatateam/notifications-pipeline.git"
+    "url": "git+https://kdvsolisawh@bitbucket.org/awhdatateam/notifications-pipeline.git"
   },
-  "author": "Cristopher Sodusta",
+  "author": "Kydo Solis",
   "license": "ISC",
-  "homepage": "https://cristopher96@bitbucket.org/awhdatateam/notifications-pipeline#readme"
+  "homepage": "https://kdvsolisawh@bitbucket.org/awhdatateam/notifications-pipeline#readme"
 }

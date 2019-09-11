@@ -13,9 +13,9 @@
           {
             "name": "Message/s",
             "in": "body",
-            "description": "Requires at least a single item containing message content and recipient mobile number in the messages list.",
+            "description": "Requires at least a single item containing message content and recipient messenger id in the messages list.",
             "schema": {
-              "$ref": "#/definitions/fb"
+              "$ref": "#/definitions/notification"
             }
           }
         ],
@@ -23,7 +23,67 @@
           "200": {
             "description": "Message/s successfully sent.",
             "schema": {
-              "$ref": "#/definitions/fb"
+              "$ref": "#/definitions/notification"
+            }
+          },
+          "400": {
+            "$ref": "#/responses/Standard400ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/Standard500ErrorResponse"
+          }
+        }
+      }
+    },
+    "/fb/generate-payment-id": {
+      "get": {
+        "summary": "Generate random payment ID",
+        "description": "Sets attribute of 'payment_id' with random numerical string which will be used to generate payment link with that payment_id",
+        "parameters": [
+          {
+            "name": "Message/s",
+            "in": "body",
+            "description": "No input. Just set attribute random payment_id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "attribute payment_id was generated"
+          },
+          "400": {
+            "$ref": "#/responses/Standard400ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/Standard500ErrorResponse"
+          }
+        }
+      }
+    },
+    "/fb/show-pay": {
+      "get": {
+        "summary": "Generate payment options buttons",
+        "description": "Respond with JSON that contains buttons for payment option selection",
+        "parameters": [{    
+            "in": "query",
+            "name": "messenger_id",
+            "required": true,
+            "description": "FB user messenger_id",
+            "type": "string",
+            "example": "21122132343"
+            },
+            {    
+            "in": "query",
+            "name": "payment_id",
+            "required": true,
+            "description": "random unique payment_id from generate-payment-id",
+            "type": "string",
+            "example": "21122132343"
+        }],
+        "responses": {
+          "200": {
+            "description": "Payment option buttons was generated",
+            "schema": {
+              
             }
           },
           "400": {
@@ -46,7 +106,7 @@
     }
   },
   "definitions": {
-    "fb": {
+    "notification": {
       "type" : "array",
       "items" : {
         "required": [
