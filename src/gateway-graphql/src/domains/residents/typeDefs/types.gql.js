@@ -71,7 +71,7 @@ const GQLtypes = gql`
     birthDate: Date
     address: Address
     managingOrganization: Organization
-    _document: _ResidentMeta
+    _document: _DocumentMeta
   }
 
   input IdentifierInput {
@@ -146,47 +146,6 @@ const GQLtypes = gql`
     type: OrganizationType
   }
 
-  type PersonalInformation {
-    consentGiven: String
-    DoB: Date 
-    First_Name: String
-    Gender: String
-    Last_Name: String
-    Middle_Name: String
-    lastNameSuffix: String
-  }
-
-  type ContactDetail {
-    cellphoneNumber: String
-    emailAddress: String
-    facebookID: String
-  }
-
-  type Address1 {
-    countryCode: String
-    countryName: String
-    Address_1: String
-    Address_2: String
-    postalCode: String
-    provinceCity: String
-  }
-
-  type IdentificationCard {
-    additionalIdentificationType: String
-    additionalIdentificationValue: String
-    poorCardHas: String
-    poorCardNumber: String
-    poorCardReason: String
-  }
-
-  type _ResidentMeta { 
-    createdBy: String
-    organization: String
-    type: String!
-    personType: [PersonType]!
-    dateCreated: Date
-  }
-
   type _PersonMeta { 
     _id: ID
     createdBy: String
@@ -230,33 +189,10 @@ const GQLtypes = gql`
     identifier: IdentifierInput
     name: HumanNameInput
     telecom: [ContactPointInput]
-    gender: String 
+    gender: Gender 
     birthDate: Date
     address: [AddressInput]
     managingOrganization: OrganizationInput
-  }
-
-  input ResidentInput {
-    Address_1: String
-    Address_2: String
-    consentGiven: String
-    DoB: Date 
-    First_Name: String
-    Gender: String
-    Last_Name: String
-    Middle_Name: String
-    additionalIdentificationType: String
-    additionalIdentificationValue: String
-    cellphoneNumber: String
-    countryCode: String
-    countryName: String
-    emailAddress: String
-    lastNameSuffix: String
-    poorCardHas: String
-    poorCardNumber: String
-    poorCardReason: String
-    postalCode: String
-    provinceCity: String
   }
 
   input DateRange {
