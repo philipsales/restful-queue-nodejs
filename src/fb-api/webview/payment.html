@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+   <body>
+      <script>
+         var ME = null;
+         (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/messenger.Extensions.js";
+         fjs.parentNode.insertBefore(js, fjs);
+         }(document, 'script', 'Messenger'));
+         
+         window.extAsyncInit = function() {
+         console.log('Messenger extensions are ready');
+         ME = MessengerExtensions;
+         }
+      </script>
+      <link rel="stylesheet" href="css/normalize.css">
+      <link rel="stylesheet" href="css/style.css">
+      <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+      <script src="https://cdn.checkout.com/js/framesv2.min.js"></script>
+      <script src="https://cdn.checkout.com/sandbox/js/checkout.js"></script>
+      <div class="container-item">
+         <table style="width:100%">
+            <tr>
+               <th align="left">Item List</th>
+               <th align="left">Qty</th>
+               <th align="left">Price(PHP)</th>
+            </tr>
+            <tr>
+               <td id="item-list"></td>
+               <td id="qty-list"></td>
+               <td id="price-list"></td>
+            </tr>
+         </table>
+         <hr>
+         <table style="width:100%">
+            <tr>
+               <th align="left" width=140px>Total</th>
+               <th id="total-price" align="left"></th>
+            </tr>
+         </table>
+         <br>
+         <script>
+            checkout_secret_key = "<%= checkout_secret_key %>";
+            checkout_public_key = "<%= checkout_public_key %>";
+            payment_id = "<%= payment_id %>";
+            messenger_id = "<%= userID %>";
+            restUrl = "<%= restUrl %>";
+            item_list = "<%= item_list %>".replace(/&lt;/g,"<").replace(/&gt;/g,">");
+            price_list = "<%= price_list %>".replace(/&lt;/g,"<").replace(/&gt;/g,">");
+            qty_list = "<%= qty_list %>".replace(/&lt;/g,"<").replace(/&gt;/g,">");
+            total_price = "<%= total_price %>".replace(/&lt;/g,"<").replace(/&gt;/g,">");
+            document.getElementById("item-list").innerHTML = item_list;
+            document.getElementById("price-list").innerHTML = price_list;
+            document.getElementById("qty-list").innerHTML = qty_list;
+            document.getElementById("total-price").innerHTML = total_price;
+         </script>
+      </div>
+      <br/>
+      <div class="container">
+         <form id="payment-form" method="POST" action="https://merchant.com/charge-card">
+            <label for="card-number">Card number</label>
+            <div class="input-container card-number">
+               <div class="icon-container">
+                  <img id="icon-card-number" src="images/card-icons/card.svg" alt="PAN" />
+               </div>
+               <div class="card-number-frame"></div>
+               <div class="icon-container payment-method">
+                  <img id="logo-payment-method" />
+               </div>
+               <div class="icon-container">
+                  <img id="icon-card-number-error" src="images/card-icons/error.svg" />
+               </div>
+            </div>
+            <div class="date-and-code">
+               <div>
+                  <label for="expiry-date">Expiry date</label>
+                  <div class="input-container expiry-date">
+                     <div class="icon-container">
+                        <img id="icon-expiry-date" src="images/card-icons/exp-date.svg" alt="Expiry date" />
+                     </div>
+                     <div class="expiry-date-frame"></div>
+                     <div class="icon-container">
+                        <img id="icon-expiry-date-error" src="images/card-icons/error.svg" />
+                     </div>
+                  </div>
+               </div>
+               <div>
+                  <label for="cvv">Security code</label>
+                  <div class="input-container cvv">
+                     <div class="icon-container">
+                        <img id="icon-cvv" src="images/card-icons/cvv.svg" alt="CVV" />
+                     </div>
+                     <div class="cvv-frame"></div>
+                     <div class="icon-container">
+                        <img id="icon-cvv-error" src="images/card-icons/error.svg"/>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <button id="pay-button" disabled="">PAY NOW</button>
+            <div>
+               <span class="error-message error-message__card-number"></span>
+               <span class="error-message error-message__expiry-date"></span>
+               <span class="error-message error-message__cvv"></span>
+            </div>
+         </form>
+      </div>
+      <script src="https://cdn.checkout.com/js/framesv2.min.js"></script>
+      <div class="bank-icon-container">
+         <form class="payment-form" method="POST" action="https://merchant.com/successUrl">
+            <script>
+               window.CKOConfig = {
+                 publicKey: 'pk_test_6ff46046-30af-41d9-bf58-929022d2cd14',
+                 paymentMode: 'cards',
+                 currency: 'PHP',
+                 value: '1',
+                 cardFormMode: 'cardTokenisation',
+                 renderMode: '2'
+               };
+            </script>
+            <script async src="https://cdn.checkout.com/sandbox/js/checkout.js"></script>
+         </form>
+         <p class="success-payment-message"></p>
+      </div>
+      <script src="scripts/app.js"></script>
+   </body>
+</html>

@@ -12,7 +12,7 @@ const logger = log.logger.child({
 
 router.use(bodyParser.json());
 
-router.post("/sendSMS", function(req, res) {
+router.post("/notification", function(req, res) {
   var messages = req.body;
 
   Promise.all(
@@ -26,6 +26,7 @@ router.post("/sendSMS", function(req, res) {
     })
     .catch(function(error) {
       logger.error(error);
+      res.status(200).send(error);
     });
 });
 

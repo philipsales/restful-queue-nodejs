@@ -5,7 +5,7 @@
     "version": "0.1"
   },
   "paths": {
-    "/sms/sendSMS/": {
+    "/sms/notification/": {
       "post": {
         "summary": "Send a single/bulk SMS message/s",
         "description": "Sending SMS message/s to each recipient number.",
