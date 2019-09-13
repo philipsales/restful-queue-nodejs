@@ -2,33 +2,42 @@ const { gql } = require('apollo-server');
 const { GraphQLDateTime } = require('graphql-iso-date');
 const { GraphQLScalarType } = require('graphql');
 
+/*
+  type Mutation {
+    postResident(input: CreateResidentInput!): MutateResponse!
+    postResidents(input: [CreateResidentInput]): [MutateResponse!]!
+    postUsers(input: [CreateResidentInput]): [MutateResponse!]!
+    postPatients(input: [CreateResidentInput]): [MutateResponse!]!
+    putResident(id: ID!
+      input: UpdateResidentInput!): MutateResponse!
+  }
+*/
 
 const GQLtypes = gql`
 
   scalar Date
 
   type Query {
-      Resident(id: ID!): Resident
-      Residents(
+      Person(id: ID!): Person 
+      Persons(
         filter: PersonFilter!
         orderBy: PersonOrderBy
         offset: Int
         limit: Int!
-        ): [Resident!]!
+        ): [Person!]!
     }
 
   type Mutation {
-    postResident(input: CreateResidentInput!): MutateResponse!
-    postResidents(input: [CreateResidentInput]): [MutateResponse!]!
-    putResident(id: ID!
+    createResidents(input: [CreateResidentInput]): [MutateResponse!]!
+    updateResident(id: ID!
       input: UpdateResidentInput!): MutateResponse!
   }
 
   type MutateResponse {
     id: ID
   }
-
   input PersonFilter {
+    type: [DocumentType]!
     organization: String
     createdBy: String
     Last_Name: String
@@ -36,15 +45,105 @@ const GQLtypes = gql`
     Middle_Name: String
     dateCreated: Date 
     DoB: String
-    dateRange: DateRange
+    dateCreatedRange: DateRange
+  }
+
+  type PersonResource {
+    identifier: Identifier
+    name: HumanName
+    telecom: [ContactPoint]
+    gender: Gender
+    birthDate: Date
+    address: [Address]
+    managingOrganization: Organization
+  }
+
+  type Person {
+    domainResource: PersonResource
+    _document: _DocumentMeta
   }
 
   type Resident {
-    personalInformation: PersonalInformation 
+    identifier: Identifier
+    name: HumanName
+    telecom: ContactPoint
+    gender: Gender
+    birthDate: Date
     address: Address
-    contactDetail: ContactDetail
-    identificationCard: IdentificationCard
-    _residentMeta: _ResidentMeta
+    managingOrganization: Organization
+    _document: _ResidentMeta
+  }
+
+  input IdentifierInput {
+    value: String
+    type: String
+  }
+
+  type Identifier {
+    value: String
+    type: String
+  }
+
+  input HumanNameInput {
+    firstName: String
+    lastName: String
+    middleName: String
+    suffix: String
+  }
+
+  type HumanName {
+    firstName: String
+    lastName: String
+    middleName: String
+    suffix: String
+  }
+
+  input ContactPointInput {
+    system: ContactPointType
+    value: String
+    use: String
+    code: String
+  }
+
+  type ContactPoint {
+    system: ContactPointType
+    value: String
+    use: String
+    code: String
+  }
+
+  input AddressInput  {
+    type: AddressType
+    text: String
+    line: AddressType
+    street: String
+    city: String
+    district: String
+    state: String
+    postalCode: String
+    country: String
+  }
+
+  type Address {
+    type: AddressType
+    text: String
+    line: AddressType
+    street: String
+    city: String
+    district: String
+    state: String
+    postalCode: String
+    country: String
+  }
+
+  input OrganizationInput {
+    name: String
+    type: OrganizationType
+  }
+
+  type Organization {
+    name: String
+    type: OrganizationType
   }
 
   type PersonalInformation {
@@ -60,9 +159,10 @@ const GQLtypes = gql`
   type ContactDetail {
     cellphoneNumber: String
     emailAddress: String
+    facebookID: String
   }
 
-  type Address {
+  type Address1 {
     countryCode: String
     countryName: String
     Address_1: String
@@ -82,25 +182,58 @@ const GQLtypes = gql`
   type _ResidentMeta { 
     createdBy: String
     organization: String
-    type: String
+    type: String!
+    personType: [PersonType]!
     dateCreated: Date
   }
 
-  input _ResidentMetaInput {
+  type _PersonMeta { 
+    _id: ID
+    createdBy: String
+    organization: String
+    type: DocumentType!
+    personType: [PersonType]!
+    dateCreated: Date
+  }
+
+  type _DocumentMeta {
     createdBy: String!
     organization: String!
-    type: String!
+    type: DocumentType!
     dateCreated: Date!
   }
 
+  input _DocumentMetaInput {
+    _id: ID
+    createdBy: String!
+    organization: String!
+    type: DocumentType!
+    dateCreated: Date!
+  }
+
+  input CreatePersonInput {
+    resident: PersonResourceInput
+    _document: _DocumentMetaInput!
+  }
+
   input CreateResidentInput {
-    _residentMeta: _ResidentMetaInput!
-    resident: ResidentInput!
+    domainResource: PersonResourceInput!
+    _document: _DocumentMetaInput!
   }
 
   input UpdateResidentInput {
-    _residentMeta: _ResidentMetaInput!
-    resident: ResidentInput!
+    domainResource: PersonResourceInput!
+    _document: _DocumentMetaInput!
+  }
+
+  input PersonResourceInput {
+    identifier: IdentifierInput
+    name: HumanNameInput
+    telecom: [ContactPointInput]
+    gender: String 
+    birthDate: Date
+    address: [AddressInput]
+    managingOrganization: OrganizationInput
   }
 
   input ResidentInput {
@@ -137,6 +270,10 @@ const GQLtypes = gql`
     DoB
   }
 
+  enum DocumentType {
+    profile
+  }
+
   enum PersonOrderBy {
     Last_Name_ASC
     Last_Name_DESC
@@ -152,6 +289,35 @@ const GQLtypes = gql`
     provinceCity_DESC
     address_1_ASC
     address_1_DESC
+  }
+
+  enum Gender {
+    M
+    F
+  }
+
+  enum PersonType {
+    patient
+    resident
+    cam
+    user
+  }
+
+  enum ContactPointType {
+    emailAddress
+    cellphoneNumber
+  }
+
+  enum OrganizationType {
+    RHU
+    private
+    public
+  }
+
+  enum AddressType {
+    physical
+    postal
+    both
   }
 
 

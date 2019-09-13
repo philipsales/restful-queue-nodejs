@@ -9,11 +9,8 @@ const { buildFederatedSchema } = require("@apollo/federation");
 const { ApolloServer } = require('apollo-server');
 
 const typeDefs = require('./typeDefs/types.gql'); 
-
 const resolvers = require('./resolver');
-
 const ResidentAPI = require('./dataSources/resident');
-
 
 const dataSources = () => ({
   residentAPI: new ResidentAPI()
@@ -44,5 +41,5 @@ if (process.env.NODE_ENV !== 'test'){
 module.exports = { 
   dataSources,
   schema,
-  ResidentAPI 
+  ResidentAPI
 }

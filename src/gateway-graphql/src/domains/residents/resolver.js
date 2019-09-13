@@ -6,14 +6,18 @@ const resolvers = {
     Resident: (_, { id }, { dataSources }) => 
       dataSources.residentAPI.getResident(id),
     Residents: (_,  args , { dataSources }) => 
-      dataSources.residentAPI.getResidents(args)
+      dataSources.residentAPI.getResidents(args),
+    Persons: (_,  args , { dataSources }) => 
+      dataSources.residentAPI.getResidents(args),
+    Person: (_, { id }, { dataSources }) => 
+      dataSources.residentAPI.getResident(id),
   },
   Mutation: {
     postResident: (_,  args , { dataSources }) => 
       dataSources.residentAPI.postResident(args),
-    postResidents: (_,  args , { dataSources }) => 
+    createResidents: (_,  args , { dataSources }) => 
       dataSources.residentAPI.postResidents(args),
-    putResident: (_, args, { dataSources }) => 
+    updateResident: (_, args, { dataSources }) => 
       dataSources.residentAPI.putResident(args)
   }
 }

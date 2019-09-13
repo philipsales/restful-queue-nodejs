@@ -17,45 +17,6 @@ const bucket = cluster.openBucket("awhpiidb");
 class ResidentAPI {
   constructor() { }
 
-  residentMapper(resident) {
-    return { 
-      adddress: {
-        countryCode: resident.answers.countryCode,
-        countryName: resident.answers.countryName,
-        Address_1: resident.answers.Address_1,
-        Address_2: resident.answers.Address_2,
-        postalCode: resident.answers.postalCode, 
-        provinceCity: resident.answers.provinceCity 
-      },
-      personalInformation: {
-        consentGiven: resident.answers.Consent_Given,
-        DoB: resident.answers.DoB,
-        First_Name: resident.answers.First_Name,
-        Gender: resident.answers.Gender,
-        Last_Name: resident.answers.Last_Name,
-        Middle_Name: resident.answers.Middle_Name,
-        lastNameSuffix: resident.answers.lastNameSuffix
-      },
-      contactDetail: {
-        emailAddress: resident.answers.emailAddress,
-        cellphoneNumber: resident.answers.cellphoneNumber
-      },
-      identificationCard: {
-        additionalIdentificationType: resident.answers.additionalIdentificationType,
-        additionalIdentificationValue: resident.answers.additionalIdentificationValue,
-        poorCardHas: resident.answers.poorCardHas,
-        poorCardNumber: resident.answers.poorCardNumber, 
-        poorCardReason: resident.answers.poorCardReason,
-      },
-      _residentMeta: {
-        _id: resident._id,
-        createdBy: resident.createdBy,
-        organization: resident.organization,
-        dateCreated: resident.dateCreated
-      }
-    }
-  }
-
   async getResident(residentID) {
     console.log('RESIDENT ID', residentID);
     console.log('process ENV',process.env.COUCHBASE[0].COUCHBASE_BUCKET);
@@ -77,7 +38,7 @@ class ResidentAPI {
     }); 
 
     let result = await promise; 
-    return result.map(resident => this.residentMapper(resident))[0];
+    return result.map(resident => this.personMapper(resident))[0];
   }
 
 
@@ -102,8 +63,12 @@ class ResidentAPI {
 
     let results = await promise; 
 
+    /*
     return Array.isArray(results)
       ? results.map(resident => this.residentMapper(resident)) : [];
+      */
+    return Array.isArray(results)
+      ? results.map(person => this.personMapper(person)) : [];
   }
 
   setQuery(args){
@@ -217,18 +182,12 @@ class ResidentAPI {
 
     const url = "http://139.162.49.49:4984/awhpiidb/_bulk_docs"
 
-    args.input.forEach(item => {
-      let meta =  item._residentMeta
-      let answers =  item.resident
-      let document = {...meta, answers }
-      documents.push(document)
-    });
+    documents =  args.input.map(arg => this.residentMapper(arg)); 
     bulkDocs = { "docs" : documents };
     
     let promise = new Promise((resolve,reject) => {
       axios.post(url, bulkDocs)
         .then((response) => {
-
           console.log(response.data);
           resolve(response.data);
         })
@@ -247,9 +206,11 @@ class ResidentAPI {
     let revision = await this.getLatestRevision(args.id);
     let url = `http://139.162.49.49:4984/awhpiidb/${args.id}?new_edits=true&rev=${revision}`
 
-    let meta =  args.input._residentMeta
-    let answers =  args.input.resident
-    let data = {...meta, answers}
+    //let meta =  args.input._document
+    //let answers =  args.input.domainResource
+    //let data = {...meta, answers}
+    console.log(args.input);
+    let data =   this.residentMapper(args.input); 
 
     let promise = new Promise((resolve,reject) => {
       axios.put(url, data)
@@ -288,6 +249,114 @@ class ResidentAPI {
 
       return await promise; 
   }
+
+  
+  residentMapper(args) {
+    let resident = args.domainResource;
+    let _docs = args._document;
+    console.log('DOCS', _docs);
+    console.log(resident.identifier.value);
+
+    let result = { 
+      answers: {
+        First_Name: resident.name.firstName,
+        Last_Name: resident.name.lastName,
+        Middle_Name: resident.name.middleName,
+        lastNameSuffix: resident.name.suffix,
+        Gender: resident.gender,
+        DoB: resident.birthDate,
+        additionalIdentificationValue: resident.identifier.value,
+        additionalIdentificationType: resident.identifier.type,
+        //TODO: Schema is limited to single arary based on KOBO AQM Schema 
+        provinceCity: resident.address[0].city,
+        countryName: resident.address[0].country,
+        postalCode: resident.address[0].postalCode,
+        emailAddress: this.telecomInputMapper(resident.telecom,'emailAddress'),
+        cellphoneNumber: this.telecomInputMapper(resident.telecom,'cellphoneNumber')
+
+
+      },
+      type: _docs.type,
+      organization: _docs.organization,
+      dateCreated: _docs.dateCreated,
+      createdBy: _docs.createdBy
+    };
+
+    return result;
+  }
+
+  telecomInputMapper(telecom,system) {
+    //TODO: telecom is limited to single arary based on KOBO AQM Schema 
+    let contactValue;
+    telecom.forEach(item => {
+      if(system === item.system)
+        contactValue = item.value 
+    });
+    return contactValue;
+  }
+
+  //TODO: make this model and separate file
+  personMapper(Person) {
+    let person = { 
+      domainResource : {
+        address: {
+          type: "physical",
+          text: Person.answers.Address_1,
+          line: Person.answers.Address_2,
+          city: Person.answers.provinceCity,
+          country: Person.answers.countryCode,
+          postalCode: Person.answers.postalCode
+        },
+        birthDate: Person.answers.DoB,
+        managingOrganization: {
+          type: "RHU",
+          name: Person.organization
+        },
+        telecom: this.telecomQueryMapper(Person.answers),
+        gender: Person.answers.Gender,
+        name: {
+          firstName: Person.answers.First_Name,
+          lastName: Person.answers.Last_Name,
+          middleName: Person.answers.Middle_Name,
+          suffix: Person.answers.lastNameSuffix
+        },
+        identifier: {
+          value: Person.answers.additionalIdentificationValue,
+          type: Person.answers.additionalIdentificationType
+        }
+      },
+      _document: {
+        _id: Person._id,
+        createdBy: Person.createdBy,
+        organization: Person.organization,
+        dateCreated: Person.dateCreated,
+        type: [Person.type]
+      }
+    }
+    return person;
+  }
+  //TODO: make this model and separate file
+  telecomQueryMapper(person){
+    let telecom = [];
+
+    if (person.emailAddress){
+      let email = {};
+      email['system'] = "emailAddress";
+      email['value']= person.emailAddress;
+      telecom.push(email);
+    }
+
+    if (person.cellphoneNumber){
+      let cellphone = {};
+      cellphone['system'] = "cellphoneNumber";
+      cellphone['value']= person.countryCode + " " + person.cellphoneNumber
+      telecom.push(cellphone);
+    }
+
+    return telecom
+  }
+
+
 }
 
 module.exports = ResidentAPI;
