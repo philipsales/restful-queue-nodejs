@@ -115,7 +115,7 @@ const GQLtypes = gql`
   input AddressInput  {
     type: AddressType
     text: String
-    line: AddressType
+    line: String 
     street: String
     city: String
     district: String
@@ -127,7 +127,7 @@ const GQLtypes = gql`
   type Address {
     type: AddressType
     text: String
-    line: AddressType
+    line: String 
     street: String
     city: String
     district: String
