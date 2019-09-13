@@ -18,11 +18,7 @@ class ResidentAPI {
   constructor() { }
 
   async getResident(residentID) {
-    console.log('RESIDENT ID', residentID);
-    console.log('process ENV',process.env.COUCHBASE[0].COUCHBASE_BUCKET);
-
     let statement = `SELECT awhpiidb.* FROM awhpiidb WHERE meta().id="${residentID}" LIMIT 1`;
-    console.log(statement);
     let query = couchbase.N1qlQuery.fromString(statement);
 
     let promise = new Promise((resolve,reject) => {
@@ -63,10 +59,6 @@ class ResidentAPI {
 
     let results = await promise; 
 
-    /*
-    return Array.isArray(results)
-      ? results.map(resident => this.residentMapper(resident)) : [];
-      */
     return Array.isArray(results)
       ? results.map(person => this.personMapper(person)) : [];
   }
@@ -205,11 +197,6 @@ class ResidentAPI {
   async putResident(args) {
     let revision = await this.getLatestRevision(args.id);
     let url = `http://139.162.49.49:4984/awhpiidb/${args.id}?new_edits=true&rev=${revision}`
-
-    //let meta =  args.input._document
-    //let answers =  args.input.domainResource
-    //let data = {...meta, answers}
-    console.log(args.input);
     let data =   this.residentMapper(args.input); 
 
     let promise = new Promise((resolve,reject) => {
@@ -251,6 +238,7 @@ class ResidentAPI {
   }
 
   
+  //TODO: make this model and separate file
   residentMapper(args) {
     let resident = args.domainResource;
     let _docs = args._document;
@@ -273,8 +261,6 @@ class ResidentAPI {
         postalCode: resident.address[0].postalCode,
         emailAddress: this.telecomInputMapper(resident.telecom,'emailAddress'),
         cellphoneNumber: this.telecomInputMapper(resident.telecom,'cellphoneNumber')
-
-
       },
       type: _docs.type,
       organization: _docs.organization,
@@ -285,28 +271,18 @@ class ResidentAPI {
     return result;
   }
 
-  telecomInputMapper(telecom,system) {
-    //TODO: telecom is limited to single arary based on KOBO AQM Schema 
-    let contactValue;
-    telecom.forEach(item => {
-      if(system === item.system)
-        contactValue = item.value 
-    });
-    return contactValue;
-  }
-
   //TODO: make this model and separate file
   personMapper(Person) {
     let person = { 
       domainResource : {
-        address: {
+        address: [{
           type: "physical",
           text: Person.answers.Address_1,
           line: Person.answers.Address_2,
           city: Person.answers.provinceCity,
           country: Person.answers.countryCode,
           postalCode: Person.answers.postalCode
-        },
+        }],
         birthDate: Person.answers.DoB,
         managingOrganization: {
           type: "RHU",
@@ -335,6 +311,17 @@ class ResidentAPI {
     }
     return person;
   }
+
+  telecomInputMapper(telecom,system) {
+    //TODO: telecom is limited to single arary based on KOBO AQM Schema 
+    let contactValue;
+    telecom.forEach(item => {
+      if(system === item.system)
+        contactValue = item.value 
+    });
+    return contactValue;
+  }
+
   //TODO: make this model and separate file
   telecomQueryMapper(person){
     let telecom = [];
@@ -355,8 +342,6 @@ class ResidentAPI {
 
     return telecom
   }
-
-
 }
 
 module.exports = ResidentAPI;
