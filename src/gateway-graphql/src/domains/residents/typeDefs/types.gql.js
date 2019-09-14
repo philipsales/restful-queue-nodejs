@@ -1,20 +1,6 @@
 const { gql } = require('apollo-server');
-const { GraphQLDateTime } = require('graphql-iso-date');
-const { GraphQLScalarType } = require('graphql');
-
-/*
-  type Mutation {
-    postResident(input: CreateResidentInput!): MutateResponse!
-    postResidents(input: [CreateResidentInput]): [MutateResponse!]!
-    postUsers(input: [CreateResidentInput]): [MutateResponse!]!
-    postPatients(input: [CreateResidentInput]): [MutateResponse!]!
-    putResident(id: ID!
-      input: UpdateResidentInput!): MutateResponse!
-  }
-*/
 
 const GQLtypes = gql`
-
   scalar Date
 
   type Query {
@@ -28,24 +14,15 @@ const GQLtypes = gql`
     }
 
   type Mutation {
-    createResidents(input: [CreateResidentInput]): [MutateResponse!]!
+    createResidents(
+      input: [CreateResidentInput]): [MutateResponse!]!
     updateResident(id: ID!
       input: UpdateResidentInput!): MutateResponse!
   }
 
-  type MutateResponse {
-    id: ID
-  }
-  input PersonFilter {
-    type: [DocumentType]!
-    organization: String
-    createdBy: String
-    Last_Name: String
-    First_Name: String
-    Middle_Name: String
-    dateCreated: Date 
-    DoB: String
-    dateCreatedRange: DateRange
+  type Person {
+    domainResource: PersonResource
+    _document: _DocumentMeta
   }
 
   type PersonResource {
@@ -58,20 +35,42 @@ const GQLtypes = gql`
     managingOrganization: Organization
   }
 
-  type Person {
-    domainResource: PersonResource
-    _document: _DocumentMeta
+  type _DocumentMeta {
+    createdBy: String!
+    organization: String!
+    type: DocumentType!
+    dateCreated: Date!
   }
 
-  type Resident {
-    identifier: Identifier
-    name: HumanName
-    telecom: ContactPoint
-    gender: Gender
+  input CreateResidentInput {
+    domainResource: PersonResourceInput!
+    _document: _DocumentMetaInput!
+  }
+
+  input UpdateResidentInput {
+    domainResource: PersonResourceInput!
+    _document: _DocumentMetaInput!
+  }
+
+  type MutateResponse {
+    id: ID
+  }
+
+  input PersonResourceInput {
+    identifier: IdentifierInput
+    name: HumanNameInput
+    telecom: [ContactPointInput]
+    gender: Gender 
     birthDate: Date
-    address: Address
-    managingOrganization: Organization
-    _document: _DocumentMeta
+    address: [AddressInput]
+    managingOrganization: OrganizationInput
+  }
+
+  input _DocumentMetaInput {
+    createdBy: String!
+    organization: String!
+    type: DocumentType!
+    dateCreated: Date!
   }
 
   input IdentifierInput {
@@ -146,59 +145,22 @@ const GQLtypes = gql`
     type: OrganizationType
   }
 
-  type _PersonMeta { 
-    _id: ID
-    createdBy: String
-    organization: String
-    type: DocumentType!
-    personType: [PersonType]!
-    dateCreated: Date
-  }
-
-  type _DocumentMeta {
-    createdBy: String!
-    organization: String!
-    type: DocumentType!
-    dateCreated: Date!
-  }
-
-  input _DocumentMetaInput {
-    _id: ID
-    createdBy: String!
-    organization: String!
-    type: DocumentType!
-    dateCreated: Date!
-  }
-
-  input CreatePersonInput {
-    resident: PersonResourceInput
-    _document: _DocumentMetaInput!
-  }
-
-  input CreateResidentInput {
-    domainResource: PersonResourceInput!
-    _document: _DocumentMetaInput!
-  }
-
-  input UpdateResidentInput {
-    domainResource: PersonResourceInput!
-    _document: _DocumentMetaInput!
-  }
-
-  input PersonResourceInput {
-    identifier: IdentifierInput
-    name: HumanNameInput
-    telecom: [ContactPointInput]
-    gender: Gender 
-    birthDate: Date
-    address: [AddressInput]
-    managingOrganization: OrganizationInput
-  }
-
   input DateRange {
     dateName: DateName
     dateFrom: Date
     dateTo: Date
+  }
+
+  input PersonFilter {
+    type: [DocumentType]!
+    organization: String
+    createdBy: String
+    Last_Name: String
+    First_Name: String
+    Middle_Name: String
+    dateCreated: Date 
+    DoB: String
+    dateCreatedRange: DateRange
   }
 
   enum DateName {
@@ -255,8 +217,6 @@ const GQLtypes = gql`
     postal
     both
   }
-
-
 `;
 
 module.exports = GQLtypes;
