@@ -28,11 +28,13 @@ const GQLtypes = gql`
   type PersonResource {
     identifier: Identifier
     name: HumanName
+    active: Boolean
     telecom: [ContactPoint]
     gender: Gender
     birthDate: Date
     address: [Address]
     managingOrganization: Organization
+    link: [Link]
   }
 
   type _DocumentMeta {
@@ -59,11 +61,13 @@ const GQLtypes = gql`
   input PersonResourceInput {
     identifier: IdentifierInput
     name: HumanNameInput
+    active: Boolean
     telecom: [ContactPointInput]
     gender: Gender 
     birthDate: Date
     address: [AddressInput]
     managingOrganization: OrganizationInput
+    link: [LinkInput]
   }
 
   input _DocumentMetaInput {
@@ -145,6 +149,30 @@ const GQLtypes = gql`
     type: OrganizationType
   }
 
+  input LinkInput {
+    target: ReferenceInput 
+    assurance: IdentityAssuranceLevel
+  }
+
+  type Link {
+    target: Reference 
+    assurance: IdentityAssuranceLevel 
+  }
+
+  input ReferenceInput {
+    reference: ReferenceType 
+    type: ResourceType!
+    identifier: ID!
+    display: String
+  }
+
+  type Reference {
+    reference: ReferenceType 
+    type: ResourceType!
+    identifier: ID!
+    display: String
+  }
+
   input DateRange {
     dateName: DateName
     dateFrom: Date
@@ -217,6 +245,29 @@ const GQLtypes = gql`
     postal
     both
   }
+
+  enum IdentityAssuranceLevel {
+    level1 
+    level2  
+    level3 
+    level4
+  }
+
+  enum ResourceType {
+    Patient
+    Person
+    Practitioneer
+    RelatedPerson
+  }
+
+  enum ReferenceType {
+    literal 
+    relative 
+    internal 
+    absoluteURL
+    identifier
+  }
+
 `;
 
 module.exports = GQLtypes;
