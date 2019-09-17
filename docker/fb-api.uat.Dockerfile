@@ -1,1 +1,1 @@
-../src/fb-api/fb-api.uat.Dockerfile
+../microservices-src/fb-api/fb-api.uat.Dockerfile

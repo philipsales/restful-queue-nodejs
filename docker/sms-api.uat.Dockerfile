@@ -1,1 +1,1 @@
-../src/sms-api/sms-api.uat.Dockerfile
+../microservices-src/sms-api/sms-api.uat.Dockerfile

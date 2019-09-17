@@ -1,1 +1,1 @@
-../src/fb-subscriber/fb-subscriber.uat.Dockerfile
+../microservices-src/fb-subscriber/fb-subscriber.uat.Dockerfile

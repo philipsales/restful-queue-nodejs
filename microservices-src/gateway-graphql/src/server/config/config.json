@@ -1,0 +1,56 @@
+{
+    "local": {
+        "PORT": 4001,
+        "HOST": "localhost",
+        "LOG_PATH": "logs/",
+        "CONFIG_PATH": "src/server/config/config",
+        "APOLLO_ENGINE_KEY": "ENGINE_API_KEY=service:awh-notifications:AaQg0qq5n8DbaGVNuX1iAQ",
+        "COUCHBASES": {
+            "AWHCURISDB": {
+                "COUCHBASE_BUCKET": "awhpiidb",
+                "COUCHBASE_N1QL_PORT": "8091",
+                "COUCHBASE_N1QL_USERNAME": "",
+                "COUCHBASE_N1QL_PASSWORD": "",
+                "COUCHBASE_URI": "couchbase://localhost:8091"
+            }
+        },
+        "COUCHBASE":[
+            {
+                "COUCHBASE_BUCKET": "awhpiidb",
+                "COUCHBASE_N1QL_PORT": "8091",
+                "COUCHBASE_N1QL_USERNAME": "",
+                "COUCHBASE_N1QL_PASSWORD": "",
+                "COUCHBASE_URI": "couchbase://localhost:8091"
+            },
+            {
+                "COUCHBASE_BUCKET": "awhpiidb",
+                "COUCHBASE_N1QL_PORT": "8091",
+                "COUCHBASE_N1QL_USERNAME": "",
+                "COUCHBASE_N1QL_PASSWORD": "",
+                "COUCHBASE_URI": "couchbase://localhost:8091"
+            }
+        ]
+    },
+    "development": {
+        "PORT": 4001,
+        "HOST": "localhost",
+        "LOG_PATH": "logs/",
+        "APOLLO_ENGINE_KEY": "ENGINE_API_KEY=service:awh-notifications:AaQg0qq5n8DbaGVNuX1iAQ",
+        "COUCHBASE":[
+            {
+                "COUCHBASE_BUCKET": "awhpiidb",
+                "COUCHBASE_N1QL_PORT": "8091",
+                "COUCHBASE_N1QL_USERNAME": "",
+                "COUCHBASE_N1QL_PASSWORD": "Awhp1idb",
+                "COUCHBASE_URI": "couchbase://139.162.49.49:8091"
+            },
+            {
+                "COUCHBASE_BUCKET": "awhcurisdb",
+                "COUCHBASE_N1QL_PORT": "8091",
+                "COUCHBASE_N1QL_USERNAME": "",
+                "COUCHBASE_N1QL_PASSWORD": "Awhcur1sdb",
+                "COUCHBASE_URI": "couchbase://139.162.49.49:8091"
+            }
+        ]
+    }
+}

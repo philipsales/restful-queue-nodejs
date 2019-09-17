@@ -1,1 +1,1 @@
-../src/email-api/email-api.uat.Dockerfile
+../microservices-src/email-api/email-api.uat.Dockerfile
