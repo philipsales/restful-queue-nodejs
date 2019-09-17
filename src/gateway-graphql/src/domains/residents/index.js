@@ -9,6 +9,12 @@ const { buildFederatedSchema } = require("@apollo/federation");
 const { ApolloServer } = require('apollo-server');
 
 const typeDefs = require('./typeDefs/types.gql'); 
+const schemas = require('./schema'); 
+const combine = require('./typeDefs/combine.gql'); 
+
+console.log('schemas.combine======>', schemas.combine);
+console.log('combine ======>', combine);
+
 const resolvers = require('./resolver');
 const ResidentAPI = require('./dataSources/resident');
 

@@ -14,6 +14,7 @@ src/*/.DS_Store
 src/*/logs/*
 
 #Node modulesj
+node_modules
 src/*/node_modules
 src/gateway_api/node_modules
 src/notifications_publisher/node_modules
@@ -24,7 +25,17 @@ src/notifications_subcriber/node_modules
 src/email_subscriber/node_modules
 src/notifications_gateway_api/node_modules
 src/sms_api/node_modules
+src/gateway-graphql/node_modules
+src/gateway-graphql/src/domains/*/node_modules
 # Credentials 
+
+src/*/logs/combined.log
+src/*/logs/error.log
+src/*/logs/warning.log
+
+src/*/package-lock.json
+src/*/server/config/config.json
+src/*/src/server/config/config.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

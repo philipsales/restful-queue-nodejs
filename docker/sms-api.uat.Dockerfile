@@ -1,0 +1,1 @@
+../src/sms-api/sms-api.uat.Dockerfile

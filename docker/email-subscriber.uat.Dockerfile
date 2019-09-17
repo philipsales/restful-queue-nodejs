@@ -1,0 +1,1 @@
+../src/email-subscriber/email-subscriber.uat.Dockerfile

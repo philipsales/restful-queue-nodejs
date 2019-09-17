@@ -180,14 +180,13 @@ const GQLtypes = gql`
   }
 
   input PersonFilter {
-    type: [DocumentType]!
     organization: String
     createdBy: String
     Last_Name: String
     First_Name: String
     Middle_Name: String
-    dateCreated: Date 
     DoB: String
+    dateCreated: Date 
     dateCreatedRange: DateRange
   }
 
@@ -213,8 +212,6 @@ const GQLtypes = gql`
     organization_DESC
     provinceCity_ASC
     provinceCity_DESC
-    address_1_ASC
-    address_1_DESC
   }
 
   enum Gender {

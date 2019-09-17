@@ -1,0 +1,1 @@
+../src/fb-subscriber/fb-subscriber.uat.Dockerfile
