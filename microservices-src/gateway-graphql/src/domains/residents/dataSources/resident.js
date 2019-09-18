@@ -2,29 +2,33 @@
 
 const axios = require('axios');
 const couchbase = require('couchbase');
-
-//TODO: FIX ALL THIS CONIFGURATION
-const auth = "Basic " + new Buffer
-	.from("curisAdminUser" + ":" + "adm(1)mwh")
-  .toString("base64")
-axios.defaults.headers.common['Authorization'] = auth;
-axios.defaults.headers.post['Content-Type'] = "application/json";
-
-const cluster = new couchbase.Cluster("couchbase://139.162.49.49:8091");
-cluster.authenticate("", "Awhp1idb")
-const bucket = cluster.openBucket("awhpiidb");
+//FIX ../../
+const config = require('../../../../src/server/config/config').config[process.env.NODE_ENV];
 
 class ResidentAPI {
   constructor() { 
-    console.log("resdient API");
+    this.AWHPIIDB =  config.DB.AWHPIIDB
+
+    this.awhpiidbURL = this.AWHPIIDB.COUCHBASE_SYNC_URI;
+    this.cluster = new couchbase.Cluster(this.AWHPIIDB.COUCHBASE_N1QL_URI);
+    this.cluster.authenticate("", this.AWHPIIDB.COUCHBASE_N1QL_PASSWORD)
+    this.bucket = this.cluster.openBucket(this.AWHPIIDB.COUCHBASE_BUCKET);
+
+    this.auth = "Basic " + new Buffer
+              .from(this.AWHPIIDB.COUCHBASE_SYNC_USERNAME + ":" + this.AWHPIIDB.COUCHBASE_SYNC_PASSWORD)
+              .toString("base64")
+    axios.defaults.headers.common['Authorization'] = this.auth;
+    axios.defaults.headers.post['Content-Type'] = "application/json";
+
+    this.documentMeta = ["organization", "createdBy", "type", "dateCreated"];
   }
 
   async getResident(residentID) {
-    let statement = `SELECT awhpiidb.* FROM awhpiidb WHERE meta().id="${residentID}" LIMIT 1`;
+    let statement = `SELECT ${this.AWHPIIDB.COUCHBASE_BUCKET}.* FROM ${this.AWHPIIDB.COUCHBASE_BUCKET} WHERE meta().id="${residentID}" LIMIT 1`;
     let query = couchbase.N1qlQuery.fromString(statement);
 
     let promise = new Promise((resolve,reject) => {
-      bucket.query(query, (error, response) => {
+      this.bucket.query(query, (error, response) => {
         if(error){
           console.log(error);
           reject(error)
@@ -44,7 +48,7 @@ class ResidentAPI {
     let query = couchbase.N1qlQuery.fromString(statement);
 
     let promise = new Promise((resolve,reject) => {
-      bucket.query(query, (error, response) => {
+      this.bucket.query(query, (error, response) => {
         if(error){
           console.log(error);
           reject(error)
@@ -67,7 +71,7 @@ class ResidentAPI {
     let offsetClause = this.parseOffset(args.offset)
     let limitClause = this.parseLimit(args.limit)
 
-    let statement = `SELECT awhpiidb.* FROM awhpiidb`;
+    let statement = `SELECT ${this.AWHPIIDB.COUCHBASE_BUCKET}.* FROM ${this.AWHPIIDB.COUCHBASE_BUCKET}`;
 
     if (whereClause)
         statement += whereClause
@@ -107,12 +111,10 @@ class ResidentAPI {
   }
 
   matchMetaDataFields(key){
-    let meta = ["organization", "createdBy", "type", "dateCreated"];
-    return meta.find(x => x === key)
+    return this.documentMeta.find(value => value === key);
   }
 
   parseOrderBy(orderBy){
-
     if(orderBy){
       let field; 
       let key = orderBy.split("_")[0];
@@ -139,7 +141,7 @@ class ResidentAPI {
   }
 
   async postResident(args) {
-    var url = "http://139.162.49.49:4984/awhpiidb/"
+    const url = this.awhpiidbURL;
 
     let meta =  args.input._residentMeta
     let answers =  args.input.resident
@@ -168,7 +170,7 @@ class ResidentAPI {
     let bulkDocs = {};
     let documents = [];
 
-    const url = "http://139.162.49.49:4984/awhpiidb/_bulk_docs"
+    const url = this.awhpiidbURL + '_bulk_docs';
 
     documents =  args.input.map(resident => this.personToResidentMapper(resident)); 
     bulkDocs = { "docs" : documents };
@@ -190,8 +192,9 @@ class ResidentAPI {
   }
 
   async putResident(args) {
-    let revision = await this.getLatestRevision(args.id);
-    let url = `http://139.162.49.49:4984/awhpiidb/${args.id}?new_edits=true&rev=${revision}`
+    let revisionID = await this.getLatestRevisionID(args.id);
+    const url = this.awhpiidbURL + `${args.id}?new_edits=true&rev=${revisionID}`;
+
     let data =   this.personToResidentMapper(args.input); 
 
     let promise = new Promise((resolve,reject) => {
@@ -213,8 +216,8 @@ class ResidentAPI {
       return await promise; 
   }
 
-  async getLatestRevision(id) {
-    var url = `http://139.162.49.49:4984/awhpiidb/${id}?revs=true`;
+  async getLatestRevisionID(id) {
+    const url = this.awhpiidbURL + `${id}?revs=true`;
     
     let promise = new Promise((resolve,reject) => {
       axios.get(url)
@@ -307,6 +310,7 @@ class ResidentAPI {
     return person;
   }
 
+  //TODO: make this model and separate file
   telecomInputMapper(telecom,system) {
     //TODO: telecom is limited to single arary based on KOBO AQM Schema 
     let contactValue;

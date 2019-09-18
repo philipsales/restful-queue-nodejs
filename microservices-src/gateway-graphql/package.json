@@ -6,8 +6,10 @@
   "scripts": {
     "build": "tsc",
     "dev": "concurrently \"npm run \" \"command2 arg\"",
-    "domains": "concurrently \"nodemon src/domains/messages/index.js \"  \"nodemon src/domains/residents/index.js\" ",
-    "gateway": "nodemon gateway.js",
+    "domains": "NODE_ENV=development concurrently \"nodemon src/domains/messages/index.js \"  \"nodemon src/domains/residents/index.js\" ",
+    "gateway": "NODE_ENV=development nodemon gateway.js",
+    "message": "NODE_ENV=development nodemon src/domains/messages/index.js",
+    "resident": "NODE_ENV=development nodemon src/domains/residents/index.js",
     "serve": "npm run build && nodemon src/index.js",
     "start": "node src/index.js",
     "deploy": "npm run build"

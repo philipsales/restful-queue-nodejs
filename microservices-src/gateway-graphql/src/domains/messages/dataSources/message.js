@@ -2,38 +2,29 @@
 
 const couchbase = require('couchbase');
 const axios = require('axios');
-
-//TODO: FIX ALL THIS CONIFGURATION
-const auth = "Basic " + new Buffer
-	.from("curisAdminUser" + ":" + "adm(1)mwh")
-  .toString("base64")
-axios.defaults.headers.common['Authorization'] = auth;
-axios.defaults.headers.post['Content-Type'] = "application/json";
-
-const cluster = new couchbase.Cluster("couchbase://139.162.49.49:8091");
-cluster.authenticate("", "Awhcur1sdb")
-const bucket = cluster.openBucket("awhcurisdb");
+//FIX ../../
+const config = require('../../../../src/server/config/config').config[process.env.NODE_ENV];
 
 class MessageAPI {
-  constructor() { }
+  constructor() { 
+    this.AWHCURISDB =  config.DB.AWHCURISDB
 
-  messageMapper(message) {
-    return {
-      messageCode: message.messageCode,
-      messageContent: message.messageContent,
-      lang: message.lang,
-      channelType: message.channelType
-    }
+    this.awhcurisdbURL = this.AWHCURISDB.COUCHBASE_SYNC_URI;
+    this.cluster = new couchbase.Cluster(this.AWHCURISDB.COUCHBASE_N1QL_URI);
+    this.cluster.authenticate("", this.AWHCURISDB.COUCHBASE_N1QL_PASSWORD)
+    this.bucket = this.cluster.openBucket(this.AWHCURISDB.COUCHBASE_BUCKET);
   }
 
   async getMessages() {
     
-    let statement = `SELECT awhcurisdb.* FROM awhcurisdb WHERE type="notification-messages"`;
-    console.log(statement);
+    let statement = `SELECT ${this.AWHCURISDB.COUCHBASE_BUCKET}.* 
+        FROM ${this.AWHCURISDB.COUCHBASE_BUCKET} 
+        WHERE type="notification-messages"`;
+
     let query = couchbase.N1qlQuery.fromString(statement);
 
     let promise = new Promise((resolve,reject) => {
-      bucket.query(query, (error, response) => {
+      this.bucket.query(query, (error, response) => {
         if(error){
           console.log(error);
           reject(error)
@@ -52,8 +43,10 @@ class MessageAPI {
 
   
   async getMessage(messageCode) {
-    let statement = `SELECT awhcurisdb.* FROM awhcurisdb WHERE messageCode="${messageCode}";`;
-    console.log(statement);
+    let statement = `SELECT ${this.AWHCURISDB.COUCHBASE_BUCKET}.* 
+        FROM ${this.AWHCURISDB.COUCHBASE_BUCKET} 
+        WHERE messageCode="${messageCode}";`;
+        
     let query = couchbase.N1qlQuery.fromString(statement);
 
     let promise = new Promise((resolve,reject) => {
@@ -73,6 +66,14 @@ class MessageAPI {
     return result.map(message => this.messageMapper(message))[0];
   }
   
+  messageMapper(message) {
+    return {
+      messageCode: message.messageCode,
+      messageContent: message.messageContent,
+      lang: message.lang,
+      channelType: message.channelType
+    }
+  }
 
 
 

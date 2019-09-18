@@ -1,6 +1,7 @@
 'use strict';
 
 require('./src/server/config/config');
+
 const log = require('./src/server/lib/logger/logger');
 const logger = log.logger.child({ sourceFile: log.file.setFilename(__filename) });
 
