@@ -147,11 +147,10 @@ function onCardTokenized(event) {
         var data = JSON.parse(this.responseText);
         if(data.status == "Authorized") {
             el.innerHTML = "Payment Complete!";
-            console.log(messenger_id);
             var notify = new XMLHttpRequest();
-            notify.open("POST", restUrl + "/fb/notification", true);
+            notify.open("POST", restUrl + "/notify_order", true);
             notify.setRequestHeader('Content-Type', 'application/json');
-            notify.send(JSON.stringify([{
+            notify.send(JSON.stringify({
                 "messenger_id" : messenger_id,
                 "blockName" : "Single Message Content",
                 "messageContent" : "You successfully paid with the amount of\n" +
@@ -159,7 +158,7 @@ function onCardTokenized(event) {
                                     " for items " +
                                     item_list.replace(/<br[/]>/g, "\n") +
                                     "\nThanks for your purchase!"
-            }]));
+            }));
             ME.requestCloseBrowser(function() {
                 console.log('Window will be closed');
             }, function(error) {

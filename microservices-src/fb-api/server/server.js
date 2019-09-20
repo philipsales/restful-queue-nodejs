@@ -10,8 +10,8 @@ const app = express();
 //For testing only
 //const ngrok = require('ngrok');
 
-//fb.subRouter.restUrl = "http://172.104.54.251:3004";
-fb.subRouter.restUrl = "http://localhost:3004";
+fb.subRouter.restUrl = "http://172.104.181.7:3004";
+//fb.subRouter.restUrl = "http://localhost:3004";
 
 app.use(cors())
 

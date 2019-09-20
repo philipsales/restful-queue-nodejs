@@ -1,0 +1,26 @@
+{
+    "local": {
+        "HOST": "localhost",
+        "PROTOCOL" : "http",
+        "LOG_PATH": "logs/",
+        "PORT": 8000,
+        "BOT_ID": "5d463c349919bc00017b0a27",
+        "CHATFUEL_TOKEN": "mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD",
+	"CHATFUEL_BROADCAST_URL": "https://api.chatfuel.com/bots/",
+        "CHECKOUT_PUBLIC_KEY": "pk_test_26aeef07-21ae-45ec-a92d-67b41ef713ce",
+        "CHECKOUT_SECRET_KEY": "sk_test_5f2a2956-304a-47da-b079-8e3a139b59dc"
+
+    },
+    "development": {
+        "HOST": "172.104.54.251",
+        "PROTOCOL" : "http",
+        "LOG_PATH": "logs/",
+        "PORT": 8000,
+        "BOT_ID": "5d463c349919bc00017b0a27",
+        "CHATFUEL_TOKEN": "mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD",
+	"CHATFUEL_BROADCAST_URL": "https://api.chatfuel.com/bots/",
+        "CHECKOUT_PUBLIC_KEY": "pk_test_26aeef07-21ae-45ec-a92d-67b41ef713ce",
+        "CHECKOUT_SECRET_KEY": "sk_test_5f2a2956-304a-47da-b079-8e3a139b59dc"
+
+    }
+}
