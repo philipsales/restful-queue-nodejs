@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Paymaya Payment Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+
+    <script type="text/javascript" src="scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
+    <script>
+       var ME = null;
+       (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/messenger.Extensions.js";
+       fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'Messenger'));
+       
+       window.extAsyncInit = function() {
+       console.log('Messenger extensions are ready');
+       ME = MessengerExtensions;
+       }
+    </script>
+
+</head>
+<body>
+
+<div class="container">
+
+<!-- Credit Card Payment Form - START -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <h3 class="text-center">Payment Details</h3>
+                        <table style="width:100%;margin-left:30px;">
+                           <tr>
+                              <th align="left">Item List</th>
+                              <th align="left">Qty</th>
+                              <th align="left">Price(PHP)</th>
+                           </tr>
+                           <tr>
+                              <td id="item-list"></td>
+                              <td id="qty-list"></td>
+                              <td id="price-list"></td>
+                           </tr>
+                        </table>
+                        <hr>
+                        <table style="width:100%;margin-left:30px;">
+                           <tr>
+                              <th align="left" width=175px>Total</th>
+                              <th id="total-price" align="left"></th>
+                           </tr>
+                        </table>
+                        <br/>
+                        <img class="img-responsive cc-img" src="images/creditcardicons.png">
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form role="form">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>CARD NUMBER</label>
+                                    <div class="input-group">
+                                        <input type="tel" class="form-control" placeholder="Valid Card Number" />
+                                        <span class="input-group-addon"><span class="fa fa-credit-card"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-7 col-md-7">
+                                <div class="form-group">
+                                    <label><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label>
+                                    <input type="tel" class="form-control" placeholder="MM / YYYY" oninput="expirationInputCheck()" onkeypress="javascript:return isNumber(event)" maxlength="7"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-5 col-md-5 pull-right">
+                                <div class="form-group">
+                                    <label>CV CODE</label>
+                                    <input type="tel" class="form-control" placeholder="CVC" maxlength="3" onkeypress="javascript:return isNumber(event)" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div style="position: relative;min-height: 1px;padding-right: 5px;padding-left: 15px;float: left;width: 33%;">
+                                <div class="form-group">
+                                    <label>FIRST</span></label>
+                                    <input type="tel" class="form-control" placeholder="First name" />
+                                </div>
+                            </div>
+                            <div style="position: relative;min-height: 1px;padding-right: 5px;padding-left: 0px;float: left;width: 33%;">
+                                <div class="form-group">
+                                    <label>MIDDLE</span></label>
+                                    <input type="tel" class="form-control" placeholder="Middle name" />
+                                </div>
+                            </div>
+                            <div style="position: relative;min-height: 1px;padding-right: 15px;padding-left: 0px;float: left;width: 34%;">
+                                <div class="form-group">
+                                    <label>LAST</span></label>
+                                    <input type="tel" class="form-control" placeholder="Last name" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-7 col-md-7">
+                                <div class="form-group">
+                                    <label>PHONE</span></label>
+                                    <input type="tel" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-xs-5 col-md-5 pull-right">
+                                <div class="form-group">
+                                    <label>EMAIL</label>
+                                    <input type="tel" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>ADDRESS LINE 1</label>
+                                    <input type="text" class="form-control" placeholder="Line 1" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>ADDRESS LINE 2</label>
+                                    <input type="text" class="form-control" placeholder="Line 2" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-7 col-md-7">
+                                <div class="form-group">
+                                    <label>CITY</span></label>
+                                    <input type="tel" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-xs-5 col-md-5 pull-right">
+                                <div class="form-group">
+                                    <label>PROVINCE</label>
+                                    <input type="tel" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-7 col-md-7">
+                                <div class="form-group">
+                                    <label>ZIP-CODE</span></label>
+                                    <input type="tel" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-xs-5 col-md-5 pull-right">
+                                <div class="form-group">
+                                    <label>COUNTRY CODE</label>
+                                    <input type="tel" class="form-control" value="PH" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button class="btn btn-warning btn-lg btn-block">Process payment</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <p class="success-payment-message"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    payment_id = "<%= payment_id %>";
+    messenger_id = "<%= userID %>";
+    restUrl = "<%= restUrl %>";
+    item_list = "<%= item_list %>".replace(/&lt;/g,"<").replace(/&gt;/g,">");
+    price_list = "<%= price_list %>".replace(/&lt;/g,"<").replace(/&gt;/g,">");
+    qty_list = "<%= qty_list %>".replace(/&lt;/g,"<").replace(/&gt;/g,">");
+    total_price = "<%= total_price %>".replace(/&lt;/g,"<").replace(/&gt;/g,">");
+    document.getElementById("item-list").innerHTML = item_list;
+    document.getElementById("price-list").innerHTML = price_list;
+    document.getElementById("qty-list").innerHTML = qty_list;
+    document.getElementById("total-price").innerHTML = total_price;
+ </script>
+<script type="text/javascript" src="scripts/paymaya-trigger.js"></script>
+<style>
+    .cc-img {
+        margin: 0 auto;
+    }
+</style>
+<!-- Credit Card Payment Form - END -->
+
+</div>
+
+</body>
+</html>

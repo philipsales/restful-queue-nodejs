@@ -6,7 +6,9 @@
         "PORT": 3004,
         "BOT_ID": "5d463c349919bc00017b0a27",
         "CHATFUEL_TOKEN": "mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD",
-		"CHATFUEL_BROADCAST_URL": "https://api.chatfuel.com/bots/"
+		"CHATFUEL_BROADCAST_URL": "https://api.chatfuel.com/bots/",
+        "PAYMAYA_PUBLIC_KEY":"Basic cGstY1A1U2ZXaVVMc1ZpVnR1c3doRUtDa3VhbmZYZEVrZEY2bUlSWERuSDZBNzo=",
+        "PAYMAYA_SECRET_KEY": "Basic c2stWDhxb2xZank2MmtJekVicjBRUksxaDRiNEtEVkhhTmN3TVlrMzlqSW5TbA=="
     },
     "development": {
         "HOST": "172.104.54.251",
@@ -15,7 +17,9 @@
         "PORT": 3004,
         "BOT_ID": "5d463c349919bc00017b0a27",
         "CHATFUEL_TOKEN": "mELtlMAHYqR0BvgEiMq8zVek3uYUK3OJMbtyrdNPTrQB9ndV0fM7lWTFZbM4MZvD",
-		"CHATFUEL_BROADCAST_URL": "https://api.chatfuel.com/bots/"
+		"CHATFUEL_BROADCAST_URL": "https://api.chatfuel.com/bots/",
+        "PAYMAYA_PUBLIC_KEY":"Basic cGstY1A1U2ZXaVVMc1ZpVnR1c3doRUtDa3VhbmZYZEVrZEY2bUlSWERuSDZBNzo=",
+        "PAYMAYA_SECRET_KEY": "Basic c2stWDhxb2xZank2MmtJekVicjBRUksxaDRiNEtEVkhhTmN3TVlrMzlqSW5TbA=="
 
     }
 }

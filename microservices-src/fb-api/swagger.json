@@ -1,150 +1,377 @@
-{
-  "swagger": "2.0",
-  "info": {
-    "title": "FB API",
-    "version": "0.1"
+{  
+  "swagger":"2.0",
+  "info":{  
+     "title":"FB API",
+     "version":"0.1"
   },
-  "paths": {
-    "/fb/notification": {
-      "post": {
-        "summary": "Send a single/bulk FB message/s to target account",
-        "description": "Sending FB message/s to each recipient messenger id.",
-        "parameters": [
-          {
-            "name": "Message/s",
-            "in": "body",
-            "description": "Requires at least a single item containing message content and recipient messenger id in the messages list.",
-            "schema": {
-              "$ref": "#/definitions/notification"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Message/s successfully sent.",
-            "schema": {
-              "$ref": "#/definitions/notification"
-            }
-          },
-          "400": {
-            "$ref": "#/responses/Standard400ErrorResponse"
-          },
-          "500": {
-            "$ref": "#/responses/Standard500ErrorResponse"
-          }
+  "paths":{  
+     "/fb/notification":{  
+        "post":{  
+           "summary":"Send a single/bulk FB message/s to target account",
+           "description":"Sending FB message/s to each recipient messenger id.",
+           "parameters":[  
+              {  
+                 "name":"Message/s",
+                 "in":"body",
+                 "description":"Requires at least a single item containing message content and recipient messenger id in the messages list.",
+                 "schema":{  
+                    "$ref":"#/definitions/notification"
+                 }
+              }
+           ],
+           "responses":{  
+              "200":{  
+                 "description":"Message/s successfully sent.",
+                 "schema":{  
+                    "$ref":"#/definitions/notification-response"
+                 }
+              },
+              "400":{  
+                 "$ref":"#/responses/Standard400ErrorResponse"
+              },
+              "500":{  
+                 "$ref":"#/responses/Standard500ErrorResponse"
+              }
+           }
         }
-      }
-    },
-    "/fb/generate-payment-id": {
-      "get": {
-        "summary": "Generate random payment ID",
-        "description": "Sets attribute of 'payment_id' with random numerical string which will be used to generate payment link with that payment_id",
-        "parameters": [
-          {
-            "name": "Message/s",
-            "in": "body",
-            "description": "No input. Just set attribute random payment_id"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "attribute payment_id was generated"
-          },
-          "400": {
-            "$ref": "#/responses/Standard400ErrorResponse"
-          },
-          "500": {
-            "$ref": "#/responses/Standard500ErrorResponse"
-          }
+     },
+     "/fb/generate-payment-id":{  
+        "get":{  
+           "summary":"Generate random payment ID",
+           "description":"Sets attribute of 'payment_id' with random numerical string which will be used to generate payment link with that payment_id",
+           "parameters":[  
+              {  
+                 "name":"Message/s",
+                 "in":"body",
+                 "description":"No input. Just set attribute random payment_id"
+              }
+           ],
+           "responses":{  
+              "200":{  
+                 "description":"attribute payment_id was generated"
+              },
+              "400":{  
+                 "$ref":"#/responses/Standard400ErrorResponse"
+              },
+              "500":{  
+                 "$ref":"#/responses/Standard500ErrorResponse"
+              }
+           }
         }
-      }
-    },
-    "/fb/show-pay": {
-      "get": {
-        "summary": "Generate payment options buttons",
-        "description": "Respond with JSON that contains buttons for payment option selection",
-        "parameters": [{    
-            "in": "query",
-            "name": "messenger_id",
-            "required": true,
-            "description": "FB user messenger_id",
-            "type": "string",
-            "example": "21122132343"
-            },
-            {    
-            "in": "query",
-            "name": "payment_id",
-            "required": true,
-            "description": "random unique payment_id from generate-payment-id",
-            "type": "string",
-            "example": "21122132343"
-        }],
-        "responses": {
-          "200": {
-            "description": "Payment option buttons was generated",
-            "schema": {
-              
-            }
-          },
-          "400": {
-            "$ref": "#/responses/Standard400ErrorResponse"
-          },
-          "500": {
-            "$ref": "#/responses/Standard500ErrorResponse"
-          }
+     },
+     "/fb/show-pay":{  
+        "get":{  
+           "summary":"Generate payment options buttons",
+           "description":"Respond with JSON that contains buttons for payment option selection",
+           "parameters":[  
+              {  
+                 "in":"query",
+                 "name":"messenger_id",
+                 "required":true,
+                 "description":"FB user messenger_id",
+                 "type":"string",
+                 "example":"12345678"
+              },
+              {  
+                 "in":"query",
+                 "name":"payment_id",
+                 "required":true,
+                 "description":"random unique payment_id from generate-payment-id",
+                 "type":"string",
+                 "example":"21122132343"
+              }
+           ],
+           "responses":{  
+              "200":{  
+                 "description":"Payment option buttons was generated",
+                 "schema":{  
+
+                 }
+              },
+              "400":{  
+                 "$ref":"#/responses/Standard400ErrorResponse"
+              },
+              "500":{  
+                 "$ref":"#/responses/Standard500ErrorResponse"
+              }
+           }
         }
-      }
-    }
+     },
+     "/fb/pay":{  
+        "post":{  
+           "summary":"Renders basic credit card payment gateway.",
+           "description":"Renders basic credit card payment gateway.",
+           "parameters":[  
+              {  
+                 "in":"query",
+                 "name":"messenger_id",
+                 "required":true,
+                 "description":"FB user messenger_id",
+                 "type":"string",
+                 "example":"12345678"
+              },
+              {  
+                 "in":"query",
+                 "name":"payment_id",
+                 "required":true,
+                 "description":"random unique payment_id from generate-payment-id",
+                 "type":"string",
+                 "example":"21122132343"
+              }
+           ],
+           "responses":{  
+              "200":{  
+                 "description":"Renders HTML view for Basic credit card payment"
+              },
+              "400":{  
+                 "$ref":"#/responses/Standard400ErrorResponse"
+              },
+              "500":{  
+                 "$ref":"#/responses/Standard500ErrorResponse"
+              }
+           }
+        }
+     },
+     "/fb/paymaya":{  
+        "post":{  
+           "summary":"Renders paymaya card payment gateway.",
+           "description":"Renders paymaya card payment gateway.",
+           "parameters":[  
+              {  
+                 "in":"query",
+                 "name":"messenger_id",
+                 "required":true,
+                 "description":"FB user messenger_id",
+                 "type":"string",
+                 "example":"12345678"
+              },
+              {  
+                 "in":"query",
+                 "name":"payment_id",
+                 "required":true,
+                 "description":"random unique payment_id from generate-payment-id",
+                 "type":"string",
+                 "example":"21122132343"
+              }
+           ],
+           "responses":{  
+              "200":{  
+                 "description":"Renders HTML view for paymaya card payment"
+              },
+              "400":{  
+                 "$ref":"#/responses/Standard400ErrorResponse"
+              },
+              "500":{  
+                 "$ref":"#/responses/Standard500ErrorResponse"
+              }
+           }
+        }
+     },
+     "/fb/process-paymaya-payment":{  
+        "post":{  
+           "summary":"Accepts user details as parameter for paymaya API processing",
+           "description":"Users details such as full name, address, amount, etc. for paymaya API inputs were processed here",
+           "parameters":[  
+              {  
+                 "name":"Message/s",
+                 "in":"body",
+                 "description":"Contains parameters for processing paymaya payment",
+                 "schema":{  
+                    "$ref":"#/definitions/get-token"
+                 }
+              }
+           ],
+           "responses":{  
+              "200":{  
+                 "description":"Responds with PAYMENT_SUCCESS"
+              },
+              "400":{  
+                 "$ref":"#/responses/Standard400ErrorResponse"
+              },
+              "500":{  
+                 "$ref":"#/responses/Standard500ErrorResponse"
+              }
+           }
+        }
+     }
   },
-  "parameters": {
-    "jwtAuthorization": {
-      "name": "Authorization",
-      "description": "JWT token",
-      "type": "string",
-      "in": "header",
-      "required": true
-    }
+  "parameters":{  
+     "jwtAuthorization":{  
+        "name":"Authorization",
+        "description":"JWT token",
+        "type":"string",
+        "in":"header",
+        "required":true
+     }
   },
-  "definitions": {
-    "notification": {
-      "type" : "array",
-      "items" : {
-        "required": [
-          "messenger_id",
-          "blockName",
-          "messageContent"],
-		"type":"object",
-        "properties" : {
-				"messenger_id": {
-				"type": "string"
-			},
-				"blockName": {
-				"type": "string",
-				"enum": "Single Message Content"
-			},
-				"messageContent": {
-				"type": "string"
-			}        
+  "definitions":{  
+     "notification":{  
+        "type":"array",
+        "items":{  
+           "required":[  
+              "messenger_id",
+              "blockName",
+              "messageContent"
+           ],
+           "type":"object",
+           "properties":{  
+              "messenger_id":{  
+                 "type":"string"
+              },
+              "blockName":{  
+                 "type":"string",
+                 "enum":"Single Message Content"
+              },
+              "messageContent":{  
+                 "type":"string"
+              }
+           }
         }
-      }
-    }
+     },
+     "notification-response":{  
+        "type":"array",
+        "items":{  
+           "required":[  
+              "response"
+           ],
+           "type":"object",
+           "properties":{  
+              "response":{  
+                 "type":"string"
+              }
+           }
+        }
+     },
+     "get-token":{  
+        "type":"array",
+        "items":{  
+           "type":"object",
+           "properties":{
+              "card_object":{  
+                "type":"object",
+                "properties":{  
+                  "card":{  
+                    "type":"object",
+                    "properties":{  
+                        "number":{  
+                          "type":"string"
+                        },
+                        "expMonth":{  
+                          "type":"string"
+                        },
+                        "expYear":{  
+                          "type":"string"
+                        },
+                        "cvc":{  
+                          "type":"string"
+                        }
+                    }
+                  }
+                }
+              },
+              "payment_object":{  
+                 "type":"object",
+                 "properties":{  
+                    "paymentTokenId":{  
+                       "type":"string"
+                    },
+                    "totalAmount":{  
+                       "type":"object",
+                       "properties":{  
+                          "amount":{  
+                             "type":"string"
+                          },
+                          "currency":{  
+                             "type":"string"
+                          }
+                       }
+                    },
+                    "buyer":{  
+                       "type":"object",
+                       "properties":{  
+                          "firstName":{  
+                             "type":"string"
+                          },
+                          "middleName":{  
+                             "type":"string"
+                          },
+                          "lastName":{  
+                             "type":"string"
+                          },
+                          "contact":{  
+                             "type":"object",
+                             "properties":{  
+                                "phone":{  
+                                   "type":"string"
+                                },
+                                "email":{  
+                                   "type":"string"
+                                }
+                             }
+                          }
+                       },
+                       "billingAddress":{  
+                          "type":"object",
+                          "properties":{  
+                             "line1":{  
+                                "type":"string"
+                             },
+                             "line2":{  
+                                "type":"string"
+                             },
+                             "city":{  
+                                "type":"string"
+                             },
+                             "state":{  
+                                "type":"string"
+                             },
+                             "zipCode":{  
+                                "type":"string"
+                             },
+                             "countryCode":{  
+                                "type":"string"
+                             }
+                          }
+                       }
+                    },
+                    "requestReferenceNumber":{  
+                       "type":"string"
+                    },
+                    "redirectUrl":{  
+                       "type":"object",
+                       "properties":{  
+                          "success":{  
+                             "type":"string"
+                          },
+                          "failure":{  
+                             "type":"string"
+                          },
+                          "cancel":{  
+                             "type":"string"
+                          }
+                       }
+                    }
+                 }
+              }
+           }
+        }
+     }
   },
-  "responses": {
-    "Standard500ErrorResponse": {
-      "description": "An unexpected error occured."
-    },
-    "Standard400ErrorResponse": {
-      "description": "Incorrect parameters submitted."
-    },
-    "Standard401ErrorResponse": {
-      "description": "Unauthorized"
-    },
-    "Standard404ErrorResponse": {
-      "description": "Resource does not exists."
-    },
-    "Standard409ErrorResponse": {
-      "description": "Your app is making too many requests and is being rate limited. 429s can trigger on a per-app or per-user basis."
-    }
+  "responses":{  
+     "Standard500ErrorResponse":{  
+        "description":"An unexpected error occured."
+     },
+     "Standard400ErrorResponse":{  
+        "description":"Incorrect parameters submitted."
+     },
+     "Standard401ErrorResponse":{  
+        "description":"Unauthorized"
+     },
+     "Standard404ErrorResponse":{  
+        "description":"Resource does not exists."
+     },
+     "Standard409ErrorResponse":{  
+        "description":"Your app is making too many requests and is being rate limited. 429s can trigger on a per-app or per-user basis."
+     }
   }
 }
-
