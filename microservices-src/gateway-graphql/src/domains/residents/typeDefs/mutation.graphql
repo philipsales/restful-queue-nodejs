@@ -1,0 +1,7 @@
+
+type Mutation {
+  createResidents(
+    input: [CreateResidentInput]): [MutateResponse!]!
+  updateResident(id: ID!
+    input: UpdateResidentInput!): MutateResponse!
+}

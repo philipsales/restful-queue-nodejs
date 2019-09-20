@@ -40,13 +40,17 @@
     "axios": "^0.19.0",
     "concurrently": "^4.1.2",
     "couchbase": "^2.5.1",
+    "fs": "0.0.1-security",
     "graphql": "^14.5.0",
+    "graphql-import": "^0.7.1",
     "graphql-iso-date": "^3.6.1",
     "graphql-tag": "^2.10.1",
     "graphql-tool": "^1.0.0",
     "lodash": "^4.17.15",
+    "merge-files": "^0.1.2",
     "merge-graphql-schemas": "^1.7.0",
     "node-fetch": "^2.6.0",
-    "npm": "^6.11.2"
+    "npm": "^6.11.2",
+    "path": "^0.12.7"
   }
 }

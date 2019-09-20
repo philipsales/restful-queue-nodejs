@@ -1,0 +1,10 @@
+
+type Query {
+    Person(id: ID!): Person 
+    Persons(
+    filter: PersonFilter!
+    orderBy: PersonOrderBy
+    offset: Int
+    limit: Int!
+    ): [Person!]!
+}

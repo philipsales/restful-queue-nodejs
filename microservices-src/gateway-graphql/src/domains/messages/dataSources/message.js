@@ -16,7 +16,6 @@ class MessageAPI {
   }
 
   async getMessages() {
-    
     let statement = `SELECT ${this.AWHCURISDB.COUCHBASE_BUCKET}.* 
         FROM ${this.AWHCURISDB.COUCHBASE_BUCKET} 
         WHERE type="notification-messages"`;
@@ -46,11 +45,11 @@ class MessageAPI {
     let statement = `SELECT ${this.AWHCURISDB.COUCHBASE_BUCKET}.* 
         FROM ${this.AWHCURISDB.COUCHBASE_BUCKET} 
         WHERE messageCode="${messageCode}";`;
-        
+
     let query = couchbase.N1qlQuery.fromString(statement);
 
     let promise = new Promise((resolve,reject) => {
-      bucket.query(query, (error, response) => {
+      this.bucket.query(query, (error, response) => {
         if(error){
           console.log(error);
           reject(error)

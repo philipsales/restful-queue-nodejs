@@ -30,7 +30,8 @@ app.use('/api-docs',
 app.use('/sms', sms);
 
 app.listen(process.env.PORT, () => {
-	console.log(`Started on port ${process.env.HOST}:${process.env.PORT}`);
+	console.log(`environment: ${process.env.NODE_ENV}`);
+	console.log(`running at: ${process.env.HOST}:${process.env.PORT}`);
 });
 
 module.exports = app;
