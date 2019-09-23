@@ -1,0 +1,34 @@
+# sms-api deployment yaml
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: sms-deployment
+  labels:
+    app: sms
+spec:
+  replicas: 2 #We always want more than 1 replica for HA
+  selector:
+    matchLabels:
+      app: sms
+  template:
+    metadata:
+      labels:
+        app: sms
+    spec:
+      containers:
+      - name: sms-api #1st container
+        image: peejayaccts/sms-api:latest #Dockerhub image
+        imagePullPolicy:  IfNotPresent #local docker iamge
+        ports:
+        - containerPort: 3003 #Exposes the port 8080 of the container
+        env:
+        - name: PORT #Env variable key passed to container that is read by app
+          value: "3003" # Value of the env port.
+      - name: sms-subscriber #3rd container
+        image: peejayaccts/sms-subscriber:latest
+        imagePullPolicy:  IfNotPresent #local docker iamge
+        ports:
+        - containerPort: 8082
+        env:
+        - name: PORT
+          value: "8082"

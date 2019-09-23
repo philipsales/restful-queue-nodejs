@@ -1,0 +1,18 @@
+replicaCount: 3
+
+smsAPIImage:
+  repository: peejayaccts/sms-api
+  tag: "latest"
+  pullPolicy: IfNotPresent
+smsSubscriberImage:
+  repository: peejayaccts/sms-subscriber
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  smsAPIPortName: sms-api-port
+  smsAPIPortValue: 3003 
+  smsSubscriberPortName: sms-subscriber-port
+  smsSubscriberPortValue: 8082 
+  port: 80

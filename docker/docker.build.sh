@@ -1,13 +1,21 @@
 #!/bin/bash
 
-cd ../microservices-src/sms-api/
-docker build -f sms-api.uat.Dockerfile . --no-cache -t peejayaccts/sms-api:1.0.0-alpha
+VERSION=latest
+DOCKER_REGISTRY=peejayaccts
 
-cd ../microservices-src/email-api/
-docker build -f email-api.uat.Dockerfile . --no-cache -t peejayaccts/email-api:1.0.0-alpha
+#use dockerfile context
+echo "cd $PATH/sms-api"
+echo "docker build --no-cache -f sms-api.uat.Dockerfile -t $DOCKER_USER/sms-api:$VERSION . "
 
-cd ../microservices-src/sms-subscriber/
-docker build -f sms-subscriber.uat.Dockerfile . --no-cache -t peejayaccts/sms-api:1.0.0-alpha
+cd /Users/ghost/src/github/notifications-pipeline/microservices-src/sms-api
+docker build --no-cache -f sms-api.uat.Dockerfile -t $DOCKER_REGISTRY/sms-api:$VERSION . 
 
-cd ../microservices-src/email-subscriber/
-docker build -f email-subscriber.uat.Dockerfile . --no-cache -t peejayaccts/sms-api:1.0.0-alpha
+echo "cd $PATH/sms-subscriber"
+echo "docker build --no-cache -f sms-subscriber.uat.Dockerfile -t $DOCKER_USER/sms-subscriber:$VERSION . "
+
+cd /Users/ghost/src/github/notifications-pipeline/microservices-src/sms-subscriber
+docker build --no-cache -f sms-subscriber.uat.Dockerfile -t $DOCKER_REGISTRY/sms-subscriber:$VERSION . 
+
+
+#clean previous images
+docker system prune

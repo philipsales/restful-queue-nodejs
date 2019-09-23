@@ -23,6 +23,7 @@
     "start": "node server/worker-sms.js",
     "local": "NODE_ENV=local nodemon server/worker-sms.js",
     "dev": "NODE_ENV=development nodemon server/worker-sms.js",
+    "prod": "NODE_ENV=production nodemon server/worker-sms.js",
     "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && mocha **/**/spectypes.*.js --exit",
     "test-watch": "nodemon --exec 'npm test'"
   },
