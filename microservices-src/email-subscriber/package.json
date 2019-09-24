@@ -14,8 +14,9 @@
   },
   "scripts": {
     "start": "node server/worker-email.js",
-    "local": "NODE_ENV=local nodemon server/worker-email.js",
-    "dev": "NODE_ENV=development nodemon server/worker-email.js",
+    "local": "NODE_ENV=local node server/worker-email.js",
+    "dev": "NODE_ENV=development node server/worker-email.js",
+    "uat": "NODE_ENV=uat node server/worker-email.js",
     "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && mocha **/**/spectypes.*.js --exit",
     "test-watch": "nodemon --exec 'npm test'"
   },

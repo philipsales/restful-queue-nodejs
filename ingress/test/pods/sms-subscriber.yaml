@@ -1,0 +1,28 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: sms-subscriber
+  labels:
+    app: sms-subscriber
+spec:
+  containers:
+    - name: sms-subscriber
+      image: peejayaccts/sms-subscriber:latest #Dockerhub image
+      imagePullPolicy: Always
+      ports:
+      - containerPort: 4004 #Exposes the port 8080 of the container
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: sms-subscriber-service
+  namespace: default
+spec:
+  type: ClusterIP 
+  selector:
+    app: sms-subscriber
+  ports:
+  - name: sms-subscriber-port
+    protocol: TCP
+    port: 4004 

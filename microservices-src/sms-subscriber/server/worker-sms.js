@@ -71,7 +71,7 @@ function notificationAPI(body){
         logger.info('SMS-SUBSCRIBER', 'sending alert was a success!');
       }
 
-      logger.info('SMS-SUBSCRIBER ', `status code: ${response.status}`);
+      logger.info("SMS-SUBSCRIBER status code '%s'", response.status);
     }).catch(function(error){
       logger.error("SMS subscriber error response '%s'", error.message);
 

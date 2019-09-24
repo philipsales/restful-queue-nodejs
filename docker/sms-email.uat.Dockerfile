@@ -1,0 +1,1 @@
+../microservices-src/sms-api/sms-email.uat.Dockerfile

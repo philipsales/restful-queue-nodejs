@@ -23,7 +23,7 @@ app.use((req, res, next) => {
 	next();
 });
 
-app.use('/api-docs', 
+app.use('/sms_api_docs', 
 	swaggerUi.serve, 
 	swaggerUi.setup(swaggerDocument));
 
@@ -31,7 +31,7 @@ app.use('/sms', sms);
 
 app.listen(process.env.PORT, () => {
 	console.log(`environment: ${process.env.NODE_ENV}`);
-	console.log(`running at: ${process.env.HOST}:${process.env.PORT}`);
+	console.log(`running at: ${process.env.HOST}:${process.env.PORT}/sms-api-docs`);
 });
 
 module.exports = app;

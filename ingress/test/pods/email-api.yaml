@@ -1,0 +1,28 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: email-api
+  labels:
+    app: email-api 
+spec:
+  containers:
+    - name: email-api
+      image: peejayaccts/email-api:latest #Dockerhub image
+      imagePullPolicy: Always
+      ports:
+      - containerPort: 3002 #Exposes the port 8080 of the container
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: email-api-service
+  namespace: default
+spec:
+  type: NodePort 
+  selector:
+    app: email-api
+  ports:
+  - name: email-api-port
+    protocol: TCP
+    port: 3002

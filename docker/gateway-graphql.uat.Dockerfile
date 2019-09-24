@@ -1,0 +1,1 @@
+../microservices-src/gateway-graphql/gateway-graphql.uat.Dockerfile

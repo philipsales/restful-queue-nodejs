@@ -1,0 +1,1 @@
+../microservices-src/sms-subscriber/sms-subscriber.dev.Dockerfile

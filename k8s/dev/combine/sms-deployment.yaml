@@ -6,7 +6,7 @@ metadata:
   labels:
     app: sms
 spec:
-  replicas: 2 #We always want more than 1 replica for HA
+  replicas: 1 #We always want more than 1 replica for HA
   selector:
     matchLabels:
       app: sms
@@ -19,7 +19,7 @@ spec:
       - name: sms-api #1st container
         image: peejayaccts/sms-api:latest #Dockerhub image
         ports:
-        - containerPort: 8003 #Exposes the port 8080 of the container
+        - containerPort: 3003 #Exposes the port 8080 of the container
       - name:  sms-subscriber #2nd container
         image: peejayaccts/sms-subscriber:latest
         ports:
@@ -37,7 +37,7 @@ spec:
   ports:
   - name: sms-api-port
     protocol: TCP
-    port: 8003
+    port: 3003
   - name: sms-subscriber-port
     protocol: TCP
     port: 32463 

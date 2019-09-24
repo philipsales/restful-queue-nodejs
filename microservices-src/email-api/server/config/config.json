@@ -6,6 +6,13 @@
     "PORT": 3002,
     "SENDGRID_API_KEY": "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"
   },
+  "uat": {
+    "HOST": "api-uat.curis.online",
+    "PROTOCOL": "http",
+    "LOG_PATH": "logs/",
+    "PORT": 3002,
+    "SENDGRID_API_KEY": "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"
+  },
   "development": {
     "HOST": "0.0.0.0",
     "PROTOCOL": "http",

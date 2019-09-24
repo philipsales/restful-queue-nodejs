@@ -1,0 +1,38 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: notification-ingress
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+        - path: /test
+          backend:
+            serviceName: test-service
+            servicePort: 5678
+        - path: /email_api_docs
+          backend:
+            serviceName: email-service
+            servicePort: 3002 
+        - path: /email
+          backend:
+            serviceName: email-service
+            servicePort: 3002 
+        - path: /sms_api_docs
+          backend:
+            serviceName: sms-service
+            servicePort: 3003 
+        - path: /sms
+          backend:
+            serviceName: sms-service
+            servicePort: 3003 
+        - path: /fb_api_docs
+          backend:
+            serviceName: fb-service
+            servicePort: 3004 
+        - path: /fb
+          backend:
+            serviceName: fb-service
+            servicePort: 3004 

@@ -6,4 +6,4 @@ RUN npm install --only=prod
 RUN npm cache clean --force
 COPY . /usr/src/sms-api
 EXPOSE 3003
-CMD [ "npm", "run", "dev" ]
+CMD [ "npm", "run", "uat" ]

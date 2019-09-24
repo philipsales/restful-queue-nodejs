@@ -16,7 +16,8 @@
   },
   "scripts": {
     "start": "node server/server.js",
-    "dev": "NODE_ENV=development nodemon server/worker-fb.js"
+    "dev": "NODE_ENV=development node server/worker-fb.js",
+    "uat": "NODE_ENV=uat node server/worker-fb.js"
   },
   "repository": {
     "type": "git",

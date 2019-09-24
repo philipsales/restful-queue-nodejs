@@ -20,7 +20,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/email_api_docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use("/email", email);
 

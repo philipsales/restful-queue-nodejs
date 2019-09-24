@@ -1,0 +1,1 @@
+../microservices-src/fb-subscriber/fb-subscriber.dev.Dockerfile

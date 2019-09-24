@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 	next();
 });
 
-app.use('/api-docs', 
+app.use('/fb_api_docs', 
 	swaggerUi.serve, 
 	swaggerUi.setup(swaggerDocument));
 
