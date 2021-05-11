@@ -13,7 +13,7 @@
     "express": "^4.16.2",
     "handlebars": "^4.0.12",
     "jsonwebtoken": "^8.1.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "mongoose": "^4.13.8",
     "nodemailer": "^4.6.8",
     "request-promise": "^4.2.4",
