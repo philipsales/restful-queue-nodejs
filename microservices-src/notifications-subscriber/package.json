@@ -14,7 +14,7 @@
     "handlebars": "^4.0.12",
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.11",
-    "mongoose": "^4.13.8",
+    "mongoose": "^4.13.21",
     "nodemailer": "^4.6.8",
     "request-promise": "^4.2.4",
     "swagger-ui-express": "^2.0.13",
